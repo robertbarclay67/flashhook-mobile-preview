@@ -1,30 +1,37 @@
 # FlashHook public mobile preview
 
-Live preview: https://robertbarclay67.github.io/flashhook-mobile-preview/
+[Open FlashHook](https://robertbarclay67.github.io/flashhook-mobile-preview/)
 
-This standalone public interface contains no private FlashHook code, repository history, assets, songs, recordings, credentials, or internal documents. It has no external dependencies, analytics, network calls, audio capture, upload, account, or cloud sync features. GitHub Pages serves the static HTML.
+This standalone public interface contains no private FlashHook source, repository history, songs, recordings, assets, credentials, or internal documents. It has no external libraries, analytics, uploads, accounts, cloud backup, or sync. GitHub Pages serves the static HTML.
 
 ## October 19, 2026 update
 
-- Music defaults to electric lime; Comedy defaults to purple. Switching studio updates the brand accent, header line, studio label, selected studio button, capture controls, notice border, Settings heading, and studio focus outlines.
-- The universal Idea Pool stays neutral, including its selected editor, save button, and focus outlines. Saved ideas remain shared across studios.
-- Expand **Settings** to select an independent accent per category. Seven named high-contrast colors are available. Changes apply immediately; **Restore default colors** resets colors without removing ideas or categories.
-- The **Studio** menu lists all categories. Under Settings, enter a name and choose **Add category** to create a generic studio with a distinct initial accent. Custom categories support the same preview controls and their own color settings; they do not add specialized recording or generation features. Music and Comedy retain shortcut buttons. Historical additional category names were unavailable, so none were invented.
-- Native disclosure, selects, buttons, associated input labels, visible focus indicators, pressed states, and polite save/status messages support keyboard and assistive technology use. Controls are at least 44 pixels high; the layout wraps on small screens.
-- Existing local ideas use the original `flashhook-public-preview-ideas-v1` key. Colors use `flashhook-public-preview-colors-v1`; custom categories use `flashhook-public-preview-categories-v1`. Values are validated before use, and user text renders as text, not HTML. Unreadable idea storage is not overwritten. Unavailable storage produces a visible session-only warning instead of a false save confirmation.
+The existing four studios remain: **Music** (electric lime), **Comedy** (purple), **Creator** (sky blue), and **Venture** (gold). Creator covers social media, influencer content, and YouTube tutorials. Venture covers business ideas, pitches, and new ventures. Each studio now shows a short description so those mappings are clear. Custom studios receive a generic description.
 
-## Use and limitations
+Switching studios updates the brand accent, header border, studio label, selected studio button, capture controls, notice border, Settings gear, and focus outlines. The shared Idea Pool stays neutral, including its selected editor and save control. Saved ideas remain shared across studios.
 
-Settings and ideas stay on the current browser/device and origin. Clearing browser site data removes them. New visits open Music with its saved accent. Selecting another category does not discard editor drafts. Lyrics and Key Data Points are in-memory preview editors and do not persist across reloads, matching the prior preview. Only saved ideas persist. Recording and audio import show explanatory notices and remain disabled.
+All studio buttons wrap visibly on small screens. There is no redundant Studio dropdown. The upper-right Settings gear supports touch, keyboard activation, a visible focus indicator, a hover/focus tooltip, and the accessible name “Settings.” Its scrollable panel fits the viewport.
 
-Custom categories are limited to 20, with names up to 32 characters and no duplicate names. Color choices may be shared between categories. A user can choose different colors independently; the seven-color palette repeats for later additions.
+Settings offers seven named light accents and stores a separate selection per studio in this browser. Restore default colors resets only colors. Up to 20 custom studios can be added, with names up to 32 characters and no duplicates. They receive independent color settings; the palette repeats for later additions. Colors can be shared between studios.
+
+## Existing capture and editor behavior
+
+Quick Capture is an experimental, permission-gated microphone recorder already present in the live preview before this update. It offers a three-second countdown, cancellation, stop/save, browser playback, and recording downloads. Recordings stay in the device's IndexedDB and are not uploaded. Download important recordings immediately: browser storage may be cleared. Microphone/browser support varies; denial or unavailable storage produces a status message. This release preserves that recorder without claiming physical-phone microphone validation.
+
+Audio import remains disabled and displays an explanatory notice. The capture-idea shortcut focuses the shared idea editor. Ideas save locally; Lyrics and Key Data Points retain drafts while switching studios/editors within a visit, but those two drafts do not persist through reload.
+
+## Storage and privacy
+
+Ideas retain the original `flashhook-public-preview-ideas-v1` key. Colors use `flashhook-public-preview-colors-v1`; custom studios use `flashhook-public-preview-categories-v1`; recordings use IndexedDB `flashhook-preview-recordings-v1`.
+
+Settings and saved data stay on the current browser/device and origin. Clearing site data removes them. New visits open Music with its saved accent. Stored categories/colors are validated and user text renders as text, not HTML. Unreadable idea storage is not overwritten; unavailable storage produces a session-only warning.
 
 ## Verification and release
 
-Before release, checked JavaScript syntax; all seven accents exceed 7.9:1 against the darkest secondary control surface (`#242b30`), and dark accent-button text also exceeds AA contrast. Checked studio switching, independent Music/Comedy colors, custom category creation and color persistence across reload, default restoration, neutral Idea Pool, editor switching and draft retention, capture shortcut focus, and layouts at 320 and 390 pixels without horizontal page overflow. Browser viewport tests do not replace testing on a physical phone or a screen reader.
+JavaScript syntax checked. Browser validation uses the public HTTPS page at 320 and 390 pixel mobile viewports: studio themes, neutral Idea Pool, Settings, independent colors retained through reload, restoring defaults, shared idea saving/reload, editor switching, and in-visit draft retention. All seven accents use light colors against dark surfaces; labels and focus indicators remain visible. Browser viewport checks do not replace a physical-device or screen-reader test.
 
-Deployment: commit the reviewed `index.html` and this README to `main`. The existing GitHub Pages deployment publishes the repository root. No build dependencies are required. After deployment, verify the HTTPS URL and its Settings controls at a mobile viewport; inspect the Pages Actions run for success.
+This update preserves the newer gear UI, Creator/Venture studios, and local recorder found on the live branch. No private repository was copied or published. Only this README and the standalone public HTML are part of this release.
 
-Rollback: revert the theme/category commit on `main` and allow Pages to redeploy if the page fails to load, studio switching fails, or saving ideas regresses. The original idea storage key is unchanged, and theme/category keys are isolated, so an interface rollback does not delete saved ideas.
+Deploy the repository root from `main` through the existing GitHub Pages build; no dependencies are required. Confirm the Pages Actions run succeeds and the public page shows the Creator/Venture descriptions. If loading, switching, or idea saving regresses, revert the interface commit and let Pages redeploy. Separate storage keys preserve saved ideas during an interface rollback.
 
-To disable hosting, use repository **Settings → Pages → Branch → None → Save**. The public repository remains available until separately removed.
+To disable hosting, use repository **Settings → Pages → Branch → None → Save**; that does not delete the public repository.
