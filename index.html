@@ -1,4 +1,148 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#101317"><title>FlashHook — Mobile Layout Preview</title><style>
-:root{font-family:system-ui,-apple-system,sans-serif;color:#edf1e9;background:#101317}*{box-sizing:border-box}body{margin:0}button,textarea,input{font:inherit}button{border:1px solid #384047;border-radius:12px;background:#242b30;color:#f3f5ef;padding:13px;cursor:pointer;min-height:44px}button:focus-visible{outline:2px solid #cefc76}header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px 16px;border-bottom:1px solid #343b43}.brand{font-weight:900;font-size:20px;letter-spacing:-.9px}.brand span{color:#cefc76}small{color:#a8b0b5}.pill{border-radius:30px;padding:7px 13px;min-height:36px;font-size:12px}.active{background:#cefc76;color:#17200c;font-weight:800}main{max-width:800px;margin:auto;padding:24px 16px}h1{font-size:clamp(32px,7vw,48px);line-height:1.08;letter-spacing:-1.5px;margin:12px 0}h2{font-size:17px;margin:0 0 12px}.eyebrow{font-size:11px;letter-spacing:2px;color:#cefc76;font-weight:700}p{color:#b2bdc1;line-height:1.6}section{margin:22px 0}.capture{display:grid;grid-template-columns:1fr 1fr;gap:10px}.capture button{text-align:left;min-height:110px}.capture .record{grid-column:1/-1;background:#cefc76;color:#17200c;font-weight:800;font-size:17px;min-height:80px}.panel{border:1px solid #394048;border-radius:16px;padding:18px;background:#1b2026}.tabs{display:flex;gap:7px;overflow:auto;margin:18px 0}.tabs button{white-space:nowrap;font-size:12px}textarea{width:100%;border:1px solid #394048;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:130px}.item{padding:14px;border:1px solid #3b4249;border-radius:10px;margin-top:9px;background:#13191e}.notice{font-size:12px;padding:12px;border-left:3px solid #cefc76;background:#20272b}.hidden{display:none}footer{font-size:11px;color:#96a0a7;padding:30px 0}#comedy.selected{background:#d6b8ff;color:#28173a}@media(min-width:700px){.capture{grid-template-columns:repeat(3,1fr)}.capture .record{grid-column:auto}}</style></head><body><header><div class="brand"><span>⚡</span> FLASHHOOK</div><div><button id="music" class="pill active">Music</button> <button id="comedy" class="pill">Comedy</button></div></header><main><div class="eyebrow" id="mode">MUSIC STUDIO</div><h1>Catch that spark.</h1><p>Capture the idea before it disappears. Develop it when you're ready.</p><div class="notice">Temporary mobile layout preview • No server, cloud upload, or real recording. Your private projects and songs are not included.</div><section class="capture"><button class="record" id="record">● Record idea <small style="display:block;color:#364c23">Preview only</small></button><button id="hook">✎<br>I've got a hook</button><button id="import">↑<br>Bring your audio</button></section><section class="panel"><h2>Idea Pool <small id="count">(0)</small></h2><p>No need to categorize anything yet.</p><div id="ideas"></div><div class="tabs"><button class="active" id="ideasTab">Ideas</button><button id="lyricsTab">Lyrics</button><button id="notesTab">Key Data Points</button></div><div id="ideasPane"><textarea id="ideaText" placeholder="Write down a hook or idea..."></textarea><button id="save" class="active" style="margin-top:10px">Save idea locally</button></div><div id="lyricsPane" class="hidden"><textarea placeholder="Lyrics editor preview"></textarea></div><div id="notesPane" class="hidden"><textarea placeholder="Key Data Points preview"></textarea></div></section><footer>FlashHook mobile preview • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer></main><script>
-const $=id=>document.getElementById(id), storageKey="flashhook-public-preview-ideas-v1";let ideas=[];try{ideas=JSON.parse(localStorage.getItem(storageKey)||"[]")}catch{}function render(){$("count").textContent="("+ideas.length+")";$("ideas").replaceChildren(...ideas.map(t=>{let d=document.createElement("div");d.className="item";d.textContent=t;return d}))}render();$("save").onclick=()=>{let t=$("ideaText").value.trim();if(!t)return;ideas.unshift(t);localStorage.setItem(storageKey,JSON.stringify(ideas));$("ideaText").value="";render()};for(const [id,name] of [["music","MUSIC"],["comedy","COMEDY"]])$(id).onclick=()=>{$("mode").textContent=name+" STUDIO";$("music").classList.toggle("active",id==="music");$("comedy").classList.toggle("selected",id==="comedy")};for(const [id,pane] of [["ideasTab","ideasPane"],["lyricsTab","lyricsPane"],["notesTab","notesPane"]])$(id).onclick=()=>{for(const p of ["ideasPane","lyricsPane","notesPane"])$(p).classList.toggle("hidden",p!==pane);for(const b of ["ideasTab","lyricsTab","notesTab"])$(b).classList.toggle("active",b===id)};$("record").onclick=()=>alert("Recording is not enabled in this public layout preview. The private Phase 1 build contains experimental microphone capture.");$("hook").onclick=()=>{$("ideasTab").click();$("ideaText").focus()};$("import").onclick=()=>alert("Audio import is disabled in this public layout preview.");
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#101317">
+  <title>FlashHook — Mobile Layout Preview</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,sans-serif;color:#edf1e9;background:#101317;color-scheme:dark;--accent:#cefc76;--accent-ink:#101317}
+    *{box-sizing:border-box}body{margin:0}button,textarea,input,select,summary{font:inherit}button,select,summary{min-height:44px}button,select{border:1px solid #58636c;border-radius:12px;background:#242b30;color:#f3f5ef;padding:12px;cursor:pointer}button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:4px}header{border-bottom:2px solid var(--accent);padding:18px 16px}.header-inner{max-width:1000px;margin:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}.brand{font-weight:900;font-size:20px;letter-spacing:-.9px}.brand span{color:var(--accent)}.studio-switch{display:flex;gap:8px}.pill{border-radius:30px;padding:10px 15px;font-size:13px}.active,.studio-switch [aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:800}main{max-width:800px;margin:auto;padding:20px 16px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--accent);font-weight:700}h1{font-size:clamp(32px,7vw,48px);line-height:1.08;letter-spacing:-1.5px;margin:12px 0}h2{font-size:18px;margin:0 0 12px}p{color:#b2bdc1;line-height:1.6}small{color:#b2bdc1}section{margin:22px 0}.capture{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.capture button{text-align:left;min-height:110px;border-color:var(--accent)}.capture .record{grid-column:1/-1;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:17px;min-height:80px}.record small{display:block;color:inherit;font-weight:500}.panel{border:1px solid #58636c;border-radius:16px;padding:18px;background:#1b2026;min-width:0}.tabs{display:flex;gap:7px;overflow:auto;margin:18px 0;padding:4px}.tabs button{white-space:nowrap;font-size:12px}textarea{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:130px}.item{padding:14px;border:1px solid #58636c;border-radius:10px;margin-top:9px;background:#13191e;white-space:pre-wrap;overflow-wrap:anywhere}.notice{font-size:12px;padding:12px;border-left:3px solid var(--accent);background:#20272b}.hidden{display:none}.pool{--accent:#e1e6eb;--accent-ink:#101317}.pool label{display:block;margin:10px 0;font-size:14px}.save{margin-top:10px}.status{font-size:13px;min-height:1.6em;margin:8px 0}.settings{margin-bottom:24px;border:1px solid #58636c;border-radius:14px;background:#1b2026;padding:0 14px}.settings summary{cursor:pointer;padding:12px 0;color:var(--accent);font-weight:700;width:fit-content}.settings-content{padding:0 0 16px}.settings p{font-size:14px;margin-top:4px}.color-grid{display:grid;gap:16px;margin:18px 0}.color-field label{display:block;font-weight:700;margin-bottom:8px}.color-field select{width:100%}.color-sample{display:inline-block;width:14px;height:14px;border:1px solid #b2bdc1;border-radius:50%;margin-right:8px;vertical-align:-1px}footer{font-size:11px;color:#b2bdc1;padding:30px 0;line-height:1.6}@media(min-width:700px){.capture{grid-template-columns:repeat(3,minmax(0,1fr))}.capture .record{grid-column:auto}.color-grid{grid-template-columns:1fr 1fr}}@media(forced-colors:active){button[aria-pressed="true"],.active{outline:2px solid Highlight}.color-sample{forced-color-adjust:none}}
+  .studio-menu{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.studio-menu select{max-width:220px;min-width:140px}.add-category{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.add-category input{min-width:0;flex:1;border:1px solid #58636c;border-radius:12px;background:#12171c;color:#fff;padding:12px;min-height:44px}.add-label{display:block;margin-top:20px}.studio-menu label{font-size:13px}</style>
+</head>
+<body>
+  <header><div class="header-inner"><div class="brand"><span aria-hidden="true">⚡︎</span> FLASHHOOK</div><div class="studio-switch" role="group" aria-label="Choose studio"><button id="music" class="pill" aria-pressed="true">Music</button><button id="comedy" class="pill" aria-pressed="false">Comedy</button></div><div class="studio-menu"><label for="studioMenu">Studio</label><select id="studioMenu"></select></div></div></header>
+  <main>
+    <details class="settings" id="settings"><summary>Settings</summary><div class="settings-content">
+      <h2>Studio colors</h2><p id="colorHelp">Choose an accent for each studio. Changes apply immediately and stay in this browser. The shared Idea Pool keeps its neutral colors.</p>
+      <div class="color-grid" id="colorFields">
+        <div class="color-field"><label for="musicColor"><span id="musicSample" class="color-sample" aria-hidden="true"></span>Music accent</label><select id="musicColor" aria-describedby="colorHelp"></select></div>
+        <div class="color-field"><label for="comedyColor"><span id="comedySample" class="color-sample" aria-hidden="true"></span>Comedy accent</label><select id="comedyColor" aria-describedby="colorHelp"></select></div>
+      </div>
+      <label class="add-label" for="categoryName">Add a category</label><div class="add-category"><input id="categoryName" maxlength="32" placeholder="Category name" autocomplete="off"><button id="addCategory">Add category</button></div><button id="resetColors">Restore default colors</button><p id="colorStatus" class="status" role="status" aria-live="polite"></p>
+    </div></details>
+    <div class="eyebrow" id="mode" aria-live="polite">MUSIC STUDIO</div>
+    <h1>Catch that spark.</h1><p>Capture the idea before it disappears. Develop it when you're ready.</p>
+    <div class="notice">Temporary mobile layout preview • No server, cloud upload, or real recording. Your private projects and songs are not included.</div>
+    <section class="capture" aria-label="Capture an idea"><button class="record" id="record">● Record idea <small>Preview only</small></button><button id="hook">✎<br>I've got a hook</button><button id="import">↑<br>Bring your audio</button></section>
+    <section class="panel pool" aria-labelledby="poolTitle"><h2 id="poolTitle">Idea Pool <small id="count">(0)</small></h2><p>No need to categorize anything yet. Shared across every studio.</p><div id="ideas"></div>
+      <div class="tabs" role="group" aria-label="Idea Pool editors"><button class="active" id="ideasTab" aria-pressed="true" aria-controls="ideasPane">Ideas</button><button id="lyricsTab" aria-pressed="false" aria-controls="lyricsPane">Lyrics</button><button id="notesTab" aria-pressed="false" aria-controls="notesPane">Key Data Points</button></div>
+      <div id="ideasPane"><label for="ideaText">Hook or idea</label><textarea id="ideaText" placeholder="Write down a hook or idea..."></textarea><button id="save" class="active save">Save idea locally</button></div>
+      <div id="lyricsPane" class="hidden"><label for="lyricsText">Lyrics editor preview</label><textarea id="lyricsText" placeholder="Lyrics editor preview"></textarea></div>
+      <div id="notesPane" class="hidden"><label for="notesText">Key Data Points preview</label><textarea id="notesText" placeholder="Key Data Points preview"></textarea></div>
+      <p id="ideaStatus" class="status" role="status" aria-live="polite"></p>
+    </section>
+    <footer>FlashHook mobile preview • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
+  </main>
+  <script>
+    const $ = id => document.getElementById(id);
+    const storageKey = 'flashhook-public-preview-ideas-v1';
+    const themeKey = 'flashhook-public-preview-colors-v1';
+    // Curated light accents keep text, focus rings and dark button labels readable.
+    const palette = {lime:['Electric lime','#cefc76'],purple:['Purple','#d6b8ff'],sky:['Sky blue','#8edbff'],coral:['Coral','#ffad99'],gold:['Gold','#ffdc80'],pink:['Pink','#ffb8df'],mint:['Mint','#89ebca']};
+    const categoryKey = 'flashhook-public-preview-categories-v1';
+    const defaults = {music:'lime',comedy:'purple'};
+    const categories = [{id:'music',name:'Music'},{id:'comedy',name:'Comedy'}];
+    try {
+      const saved = JSON.parse(localStorage.getItem(categoryKey) || '[]');
+      if (Array.isArray(saved)) for (const item of saved.slice(0,20)) {
+        if (item && /^custom-[a-z0-9-]+$/.test(item.id) && typeof item.name === 'string' && item.name.trim() && item.name.length <= 32 && !categories.some(c => c.id === item.id || c.name.toLowerCase() === item.name.trim().toLowerCase())) {
+          categories.push({id:item.id,name:item.name.trim()});
+          defaults[item.id] = Object.hasOwn(palette,item.defaultColor) ? item.defaultColor : 'sky';
+        }
+      }
+    } catch { $('colorStatus').textContent = 'Saved categories are unavailable for this visit.'; }
+    let colors = {...defaults}, studio = 'music', ideas = [];
+    let ideasReadable = true;
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      if (Array.isArray(saved) && saved.every(t => typeof t === 'string')) ideas = saved;
+      else ideasReadable = false;
+    } catch { ideasReadable = false; }
+    try {
+      const saved = JSON.parse(localStorage.getItem(themeKey) || '{}');
+      for (const category of Object.keys(defaults)) {
+        if (saved && Object.hasOwn(palette,saved[category])) colors[category] = saved[category];
+      }
+    } catch { $('colorStatus').textContent = 'Saved colors are unavailable. Default colors are active.'; }
+    function applyTheme() {
+      document.documentElement.style.setProperty('--accent',palette[colors[studio]][1]);
+      $('mode').textContent = categories.find(c => c.id === studio).name.toUpperCase() + ' STUDIO';
+      $('hook').textContent = studio === 'music' ? "✎ I've got a hook" : studio === 'comedy' ? "✎ I've got a bit" : "✎ I've got an idea";
+      $('studioMenu').value = studio;
+      for (const category of Object.keys(defaults)) {
+        if ($(category)) $(category).setAttribute('aria-pressed',String(category === studio));
+        $(category+'Color').value = colors[category];
+        $(category+'Sample').style.backgroundColor = palette[colors[category]][1];
+      }
+    }
+    function saveColors(message) {
+      try { localStorage.setItem(themeKey,JSON.stringify(colors)); $('colorStatus').textContent = message + ' Saved in this browser.'; }
+      catch { $('colorStatus').textContent = message + ' Browser storage is unavailable; colors will last only for this visit.'; }
+    }
+    function setupCategory(category) {
+      const info = categories.find(c => c.id === category);
+      if (!$(category+'Color')) {
+        const field = document.createElement('div'); field.className = 'color-field';
+        const label = document.createElement('label'); label.htmlFor = category+'Color';
+        const sample = document.createElement('span'); sample.id = category+'Sample'; sample.className = 'color-sample'; sample.setAttribute('aria-hidden','true');
+        label.append(sample,document.createTextNode(info.name+' accent'));
+        const select = document.createElement('select'); select.id = category+'Color'; select.setAttribute('aria-describedby','colorHelp');
+        field.append(label,select); $('colorFields').append(field);
+      }
+      const menuOption = document.createElement('option'); menuOption.value = category; menuOption.textContent = info.name; $('studioMenu').append(menuOption);
+      for (const [value,[name]] of Object.entries(palette)) {
+        const option = document.createElement('option'); option.value = value; option.textContent = name;
+        $(category+'Color').append(option);
+      }
+      if ($(category)) $(category).onclick = () => { studio = category; applyTheme(); };
+      $(category+'Color').onchange = event => {
+        colors[category] = event.target.value; applyTheme();
+        saveColors(info.name + ' accent changed to ' + palette[colors[category]][0] + '.');
+      };
+    }
+    for (const category of Object.keys(defaults)) setupCategory(category);
+    $('studioMenu').onchange = event => { studio = event.target.value; applyTheme(); };
+    $('addCategory').onclick = () => {
+      const name = $('categoryName').value.trim();
+      if (!name) { $('colorStatus').textContent = 'Enter a category name.'; $('categoryName').focus(); return; }
+      if (categories.some(c => c.name.toLowerCase() === name.toLowerCase())) { $('colorStatus').textContent = 'That category already exists. Choose it from the Studio menu.'; return; }
+      if (categories.length >= 22) { $('colorStatus').textContent = 'You can add up to 20 custom categories.'; return; }
+      const id = 'custom-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8);
+      defaults[id] = Object.keys(palette)[categories.length % Object.keys(palette).length]; colors[id] = defaults[id];
+      categories.push({id,name}); setupCategory(id); studio = id; applyTheme(); $('categoryName').value = '';
+      try {
+        localStorage.setItem(categoryKey,JSON.stringify(categories.slice(2).map(c => ({...c,defaultColor:defaults[c.id]}))));
+        saveColors(name + ' category added.');
+      } catch { $('colorStatus').textContent = 'Category added for this visit only. Browser storage is unavailable.'; }
+    };
+    $('resetColors').onclick = () => { colors = {...defaults}; applyTheme(); saveColors('Default colors restored.'); };
+    applyTheme();
+    function render() {
+      $('count').textContent = '(' + ideas.length + ')';
+      $('ideas').replaceChildren(...ideas.map(text => { const item = document.createElement('div'); item.className = 'item'; item.textContent = text; return item; }));
+    }
+    render();
+    if (!ideasReadable) $('ideaStatus').textContent = 'Saved ideas could not be read. Existing browser data will not be overwritten.';
+    $('save').onclick = () => {
+      const text = $('ideaText').value.trim();
+      if (!text) { $('ideaStatus').textContent = 'Write an idea before saving.'; $('ideaText').focus(); return; }
+      ideas.unshift(text); render(); $('ideaText').value = '';
+      try {
+        if (!ideasReadable) throw new Error('Existing data unavailable');
+        localStorage.setItem(storageKey,JSON.stringify(ideas)); $('ideaStatus').textContent = 'Idea saved in this browser.';
+      } catch { $('ideaStatus').textContent = 'Idea kept for this visit only. Browser storage is unavailable or saved data could not be read. Copy your idea before leaving.'; }
+    };
+    for (const [id,pane] of [['ideasTab','ideasPane'],['lyricsTab','lyricsPane'],['notesTab','notesPane']]) {
+      $(id).onclick = () => {
+        for (const p of ['ideasPane','lyricsPane','notesPane']) $(p).classList.toggle('hidden',p !== pane);
+        for (const b of ['ideasTab','lyricsTab','notesTab']) { $(b).classList.toggle('active',b === id); $(b).setAttribute('aria-pressed',String(b === id)); }
+      };
+    }
+    $('record').onclick = () => alert('Recording is not enabled in this public layout preview.');
+    $('hook').onclick = () => { $('ideasTab').click(); $('ideaText').focus(); };
+    $('import').onclick = () => alert('Audio import is disabled in this public layout preview.');
+  </script>
+</body>
+</html>
