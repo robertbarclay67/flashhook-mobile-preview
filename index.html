@@ -40,6 +40,19 @@
 .metric strong{display:block;font-size:20px;color:var(--accent)}
 @media(max-width:560px){.storyboard-row{grid-template-columns:1fr}.storyboard-summary{grid-template-columns:1fr 1fr}.storyboard-actions button{min-width:100%}}
 
+/* AI Connections */
+.ai-connections{margin-top:22px;border:1px solid #58636c;border-radius:16px;padding:18px;background:#171d22}
+.ai-grid{display:grid;gap:10px;margin-top:14px}
+.ai-card{border:1px solid #45505a;border-radius:12px;padding:14px;background:#11171c}
+.ai-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ai-card h3{margin:0;font-size:15px}
+.ai-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.ai-tag{font-size:11px;border:1px solid #58636c;border-radius:999px;padding:4px 8px;color:#cfd6d8}
+.ai-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ai-actions button{flex:1;min-width:140px}
+.provider-note{font-size:12px;color:#b2bdc1;margin-top:8px}
+@media(min-width:700px){.ai-grid{grid-template-columns:1fr 1fr}}
+
 
 /* AI Director Review */
 .director-review{margin-top:18px;border-top:1px solid #45505a;padding-top:16px}
@@ -121,6 +134,43 @@
         <p class="status" id="directorStatus" role="status" aria-live="polite"></p>
       </div>
     </section>
+
+    <section class="ai-connections" id="aiConnections" aria-labelledby="aiConnectionsTitle">
+      <div class="storyboard-head">
+        <div>
+          <div class="eyebrow">CHOOSE YOUR AI</div>
+          <h2 id="aiConnectionsTitle">AI Connections</h2>
+          <p>Connect the services you already use. FlashHook™ stays provider-flexible so creators can choose by quality, cost, speed, or preference instead of being locked into one ecosystem.</p>
+        </div>
+      </div>
+
+      <div class="tabs" role="group" aria-label="AI provider routing preferences">
+        <button class="active" aria-pressed="true">Auto / Best Fit</button>
+        <button aria-pressed="false">Lowest Cost</button>
+        <button aria-pressed="false">Highest Quality</button>
+        <button aria-pressed="false">My Preferred Providers</button>
+      </div>
+
+      <div class="ai-grid">
+        <div class="ai-card"><div class="ai-card-head"><h3>OpenAI / ChatGPT</h3><span class="badge">Text • Reasoning • Voice</span></div><div class="ai-tags"><span class="ai-tag">AI Director™</span><span class="ai-tag">Prompt building</span><span class="ai-tag">Analysis</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Connection workflow planned.</div></div>
+        <div class="ai-card"><div class="ai-card-head"><h3>Runway</h3><span class="badge">Image • Video • Audio</span></div><div class="ai-tags"><span class="ai-tag">Still-First Workflow™</span><span class="ai-tag">Animation</span><span class="ai-tag">SFX</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Primary visual generation provider used in current prototyping.</div></div>
+        <div class="ai-card"><div class="ai-card-head"><h3>Suno</h3><span class="badge">Music</span></div><div class="ai-tags"><span class="ai-tag">Song generation</span><span class="ai-tag">Music ideation</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned music-provider option.</div></div>
+        <div class="ai-card"><div class="ai-card-head"><h3>Anthropic / Claude</h3><span class="badge">Text • Reasoning</span></div><div class="ai-tags"><span class="ai-tag">Alternative AI Director</span><span class="ai-tag">Writing</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
+        <div class="ai-card"><div class="ai-card-head"><h3>Google Gemini</h3><span class="badge">Text • Image • Multimodal</span></div><div class="ai-tags"><span class="ai-tag">Analysis</span><span class="ai-tag">Image workflows</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
+        <div class="ai-card"><div class="ai-card-head"><h3>Future / Custom Provider</h3><span class="badge">Bring Your Own AI</span></div><div class="ai-tags"><span class="ai-tag">API key / OAuth</span><span class="ai-tag">Custom routing</span></div><div class="ai-actions"><button disabled>Add provider</button><button disabled>Set routing</button></div><div class="provider-note">Designed for additional AI providers and future FlashHook AI.</div></div>
+      </div>
+
+      <div class="notice" style="margin-top:14px">
+        <strong>Provider-flexible by design.</strong><br>
+        Future routing can recommend a provider by quality, price, speed, or task type. Affiliate/referral opportunities should be tracked where permitted so FlashHook™ can drive provider growth without forcing users into a single service.
+      </div>
+
+      <div class="notice" style="margin-top:10px">
+        <strong>Provider tracker</strong><br>
+        Prototype/research stack tracked so far: OpenAI / ChatGPT, Runway, Suno, Anthropic / Claude, Google Gemini, plus additional image, video, voice, music, and sound-effect providers evaluated through connected generation services. Keep this list current as new tools are tested.
+      </div>
+    </section>
+
 
     <footer>FlashHook™ mobile preview • Workshop™ • AI Director™ • Still-First Workflow™ • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
   </main>
