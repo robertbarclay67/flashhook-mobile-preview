@@ -64,9 +64,9 @@
       <p id="ideaStatus" class="status" role="status" aria-live="polite"></p>
     </section>
 
-    <section class="storyboard-panel" id="storyboardSection" aria-labelledby="storyboardTitle">
+    <section class="storyboard-panel" id="storyboardSection" aria-labelledby="storyboardTitle"><div class="eyebrow" style="margin-bottom:8px">FLASHHOOK AI DIRECTOR</div>
       <div class="storyboard-head">
-        <div><div class="eyebrow" id="storyboardEyebrow">MUSIC • PROTOTYPE</div><h2 id="storyboardTitle">Storyboard to Beat</h2><p id="storyboardIntro">Map lyrics to story beats before you generate video. FlashHook watches repeated hooks, locations, props, and pacing.</p></div>
+        <div><div class="eyebrow" id="storyboardEyebrow">MUSIC • AI DIRECTOR</div><h2 id="storyboardTitle">Storyboard to Beat</h2><p id="storyboardIntro">Map lyrics to story beats before you generate video. FlashHook watches repeated hooks, locations, props, and pacing.</p></div>
         <button id="loadTaylor">Load TAYLOR sample</button>
       </div>
       <div class="storyboard-controls">
@@ -131,10 +131,10 @@
       if ($('storyboardJump')) $('storyboardJump').classList.remove('hidden');
       if ($('storyboardTitle')) {
         const configs={
-          music:{eyebrow:'MUSIC • PROTOTYPE',title:'Storyboard to Beat',intro:'Map lyrics to story beats before you generate video. FlashHook watches repeated hooks, locations, props, and pacing.',label:'Lyrics or sectioned lyrics',placeholder:'[Verse 1]\nRolled out of bed...\n...\n\n[Chorus]\nDo it to it...'},
-          comedy:{eyebrow:'COMEDY • PROTOTYPE',title:'Bit to Scenes',intro:'Turn a comedy premise into setup, escalation, callbacks, visual beats, and AI-video instructions.',label:'Bit, premise, or rough script',placeholder:'Setup: I try to fix one tiny thing...\nEscalation: everything gets worse...\nCallback: the first problem returns...'},
-          creator:{eyebrow:'CREATOR • PROTOTYPE',title:'Concept to Scenes',intro:'Turn a tutorial, reel, short, or YouTube idea into ordered shots and AI-video instructions.',label:'Tutorial, content idea, or rough script',placeholder:'Hook: show the problem\nStep 1: demonstrate...\nStep 2: compare...\nCTA: show final result'},
-          venture:{eyebrow:'VENTURE • PROTOTYPE',title:'Pitch to Scenes',intro:'Turn a product, pitch, or explainer idea into a clear visual story and AI-video instructions.',label:'Pitch, product concept, or explainer outline',placeholder:'Problem: ...\nSolution: ...\nDemo: ...\nProof: ...\nCTA: ...'}
+          music:{eyebrow:'MUSIC • AI DIRECTOR',title:'Storyboard to Beat',intro:'Map lyrics to story beats before you generate video. FlashHook watches repeated hooks, locations, props, and pacing.',label:'Lyrics or sectioned lyrics',placeholder:'[Verse 1]\nRolled out of bed...\n...\n\n[Chorus]\nDo it to it...'},
+          comedy:{eyebrow:'COMEDY • AI DIRECTOR',title:'Bit to Scenes',intro:'Turn a comedy premise into setup, escalation, callbacks, visual beats, and AI-video instructions.',label:'Bit, premise, or rough script',placeholder:'Setup: I try to fix one tiny thing...\nEscalation: everything gets worse...\nCallback: the first problem returns...'},
+          creator:{eyebrow:'CREATOR • AI DIRECTOR',title:'Concept to Scenes',intro:'Turn a tutorial, reel, short, or YouTube idea into ordered shots and AI-video instructions.',label:'Tutorial, content idea, or rough script',placeholder:'Hook: show the problem\nStep 1: demonstrate...\nStep 2: compare...\nCTA: show final result'},
+          venture:{eyebrow:'VENTURE • AI DIRECTOR',title:'Pitch to Scenes',intro:'Turn a product, pitch, or explainer idea into a clear visual story and AI-video instructions.',label:'Pitch, product concept, or explainer outline',placeholder:'Problem: ...\nSolution: ...\nDemo: ...\nProof: ...\nCTA: ...'}
         };
         const c=configs[studio]||configs.creator;
         $('storyboardEyebrow').textContent=c.eyebrow;
