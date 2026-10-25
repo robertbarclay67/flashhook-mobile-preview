@@ -40,6 +40,21 @@
 .metric strong{display:block;font-size:20px;color:var(--accent)}
 @media(max-width:560px){.storyboard-row{grid-template-columns:1fr}.storyboard-summary{grid-template-columns:1fr 1fr}.storyboard-actions button{min-width:100%}}
 
+
+/* AI Director Review */
+.director-review{margin-top:18px;border-top:1px solid #45505a;padding-top:16px}
+.review-tabs{display:flex;gap:7px;overflow:auto;padding:3px 0 9px}
+.review-tabs button{white-space:nowrap;font-size:12px}
+.review-pane{border:1px solid #45505a;border-radius:12px;background:#11171c;padding:14px}
+.review-list{display:grid;gap:9px}
+.review-item{border:1px solid #45505a;border-radius:10px;padding:11px;background:#171d22}
+.review-item strong{display:block;margin-bottom:4px}
+.review-good{border-left:3px solid var(--accent)}
+.review-warn{border-left:3px solid #ffdc80}
+.review-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.review-actions button{flex:1;min-width:150px}
+.approve-generate{background:var(--accent);color:var(--accent-ink);font-weight:850;border-color:var(--accent)}
+
 </style>
 </head>
 <body>
@@ -85,6 +100,22 @@
       <div id="storyboardChecks"></div>
       <div id="storyboardSummary"></div>
       <div class="board-grid" id="storyboardCards"></div>
+      <div class="director-review" id="directorReview">
+        <div class="storyboard-head"><div><div class="eyebrow">DIRECTOR REVIEW</div><h2>Review before generation</h2><p>Check the story, continuity, pacing, repeated motifs, and generation prompts before creating any video.</p></div><button id="runDirectorReview">Run review</button></div>
+        <div class="review-tabs" role="group" aria-label="Director review sections">
+          <button class="active" data-review="story">Story</button>
+          <button data-review="continuity">Continuity</button>
+          <button data-review="energy">Energy</button>
+          <button data-review="motifs">Hooks / Callbacks</button>
+          <button data-review="prompts">AI Prompts</button>
+        </div>
+        <div class="review-pane" id="reviewPane"><p>Build a storyboard, then run Director Review.</p></div>
+        <div class="review-actions">
+          <button id="approveStoryboard">Approve storyboard</button>
+          <button id="approveGenerate" class="approve-generate">Approve &amp; Generate</button>
+        </div>
+        <p class="status" id="directorStatus" role="status" aria-live="polite"></p>
+      </div>
     </section>
 
     <footer>FlashHook mobile preview • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
@@ -254,6 +285,54 @@
     $('import').onclick = () => alert('Audio import is disabled in this public layout preview.');
 
 
+    // FlashHook AI Director Review
+    let lastStoryboardCards=[];
+    let currentReviewTab='story';
+    const esc=t=>String(t??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    function directorReviewData(cards){
+      const warnings=storyboardChecks(cards);
+      const locations=[...new Set(cards.map(c=>c.location))];
+      const hooks=cards.filter(c=>c.isHook);
+      const repeated={};
+      for(const c of cards){const k=normalizeLine(c.lyric);repeated[k]=(repeated[k]||0)+1}
+      const callbacks=Object.entries(repeated).filter(([,n])=>n>1).map(([k,n])=>({k,n}));
+      const promptMissing=cards.filter(c=>!((c.prompt||'').trim()));
+      const story=[];
+      if(cards.length<3) story.push({type:'warn',title:'Thin story arc',text:'Add at least a beginning, development, and payoff.'});
+      else story.push({type:'good',title:'Story arc present',text:cards.length+' beats across '+locations.length+' locations.'});
+      if(studio==='music'){
+        const bed=cards.find(c=>/rolled out of bed/i.test(c.lyric));
+        const club=cards.find(c=>c.location==='Club');
+        if(bed&&club&&club.start-bed.start<20) story.push({type:'warn',title:'Club arrives too early',text:'The story reaches the club less than 20 seconds after the wake-up beat.'});
+      }
+      const continuity=warnings.length?warnings.map(w=>({type:'warn',title:'Continuity check',text:w})):[{type:'good',title:'Continuity looks clean',text:'No obvious location or pacing conflicts detected.'}];
+      const energy=[];
+      if(studio==='music'){
+        if(hooks.length) energy.push({type:'good',title:'Hook payoff available',text:hooks.length+' hook beat'+(hooks.length===1?'':'s')+' can carry the recurring crowd motif.'});
+        else energy.push({type:'warn',title:'No hook detected',text:'Mark chorus/hook sections so FlashHook can repeat and escalate the visual motif.'});
+      }else{
+        energy.push({type:'good',title:'Escalation path',text:'Use early beats for setup, middle beats for development, and final beats for payoff/CTA.'});
+      }
+      const motifs=[];
+      if(studio==='music'&&hooks.length) motifs.push({type:'good',title:'Recurring hook motif',text:'Reuse the strongest hook visual and escalate lighting, crowd size, or choreography on each return.'});
+      callbacks.forEach(x=>motifs.push({type:'good',title:'Callback detected',text:'Repeated idea: "'+x.k+'" appears '+x.n+' times.'}));
+      if(!motifs.length) motifs.push({type:'warn',title:'No recurring motif yet',text:'Consider a visual callback, prop, framing idea, or recurring hook that viewers can recognize.'});
+      const prompts=promptMissing.length?[{type:'warn',title:'Missing AI prompts',text:promptMissing.length+' beat'+(promptMissing.length===1?'':'s')+' need generation instructions.'}]:[{type:'good',title:'Generation prompts ready',text:'Every beat has an editable AI-video instruction.'}];
+      return {story,continuity,energy,motifs,prompts};
+    }
+    function renderDirectorReview(tab=currentReviewTab){
+      currentReviewTab=tab;
+      const data=directorReviewData(lastStoryboardCards);
+      const items=data[tab]||[];
+      $('reviewPane').innerHTML='<div class="review-list">'+items.map(i=>'<div class="review-item '+(i.type==='warn'?'review-warn':'review-good')+'"><strong>'+esc(i.title)+'</strong><span>'+esc(i.text)+'</span></div>').join('')+'</div>';
+      document.querySelectorAll('[data-review]').forEach(b=>{const on=b.dataset.review===tab;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});
+      $('directorStatus').textContent='Director Review updated.';
+    }
+    document.querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>renderDirectorReview(b.dataset.review));
+    $('runDirectorReview').onclick=()=>{if(!lastStoryboardCards.length){$('directorStatus').textContent='Build a storyboard first.';return;}renderDirectorReview();};
+    $('approveStoryboard').onclick=()=>{if(!lastStoryboardCards.length){$('directorStatus').textContent='Nothing to approve yet.';return;}try{localStorage.setItem('flashhook-approved-storyboard-v1',JSON.stringify({studio,cards:lastStoryboardCards,approvedAt:Date.now()}));$('directorStatus').textContent='Storyboard approved locally.';}catch{$('directorStatus').textContent='Approved for this visit; browser storage is unavailable.';}};
+    $('approveGenerate').onclick=()=>{if(!lastStoryboardCards.length){$('directorStatus').textContent='Build a storyboard first.';return;}$('approveStoryboard').click();$('directorStatus').textContent='Generation queue prototype: storyboard approved. Video-engine handoff is the next integration step.';};
+
     // Storyboard to Beat: local-only prototype. No cloud upload or AI API required.
     const storyboardKey='flashhook-storyboard-prototype-v1';
     const sampleTaylor={
@@ -372,6 +451,7 @@ Do it to it`,
       return warnings;
     }
     function renderStoryboard(cards){
+      lastStoryboardCards=cards;
       const box=$('storyboardCards'); box.replaceChildren();
       const warnings=storyboardChecks(cards), hooks=cards.filter(c=>c.isHook).length, locations=[...new Set(cards.map(c=>c.location))];
       $('storyboardChecks').innerHTML=warnings.length
@@ -393,6 +473,7 @@ Do it to it`,
         box.append(el);
       });
       $('storyboardStatus').textContent=(studio==='music'?'Storyboard draft':'Scene plan')+' built locally. Edit visual beats, AI video instructions, and continuity notes before generation.';
+      if($('directorReview')) renderDirectorReview(currentReviewTab);
     }
     function saveStoryboard(cards){
       try{localStorage.setItem(storyboardKey,JSON.stringify({lyrics:$('storyLyrics').value,concept:$('storyConcept').value,duration:$('storyDuration').value,cards}))}catch{}
