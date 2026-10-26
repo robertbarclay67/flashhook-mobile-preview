@@ -4,7 +4,7 @@
 
 ## Public sneak peek
 
-`index.html` is the public introduction to Flash-Hook. The original working interface is preserved at `studio.html`, with a Home link. Registration and login buttons open an explicit coming-soon notice. Plans display **Plans coming soon**; no account credentials or payment information are collected, and no checkout or recurring charges are enabled. Live authentication, billing, subscription management, and cloud sync remain future implementation work.
+`index.html` is the public introduction to Flash-Hook. The original working interface is preserved at `studio.html`, with a Home link. Registration and login buttons open an explicit coming-soon notice. Plans display Basic **$9/month**, Advanced **$19/month**, and Pro **$39/month**, with **Checkout coming soon** on disabled buttons. Regular annual prices are $75.60, $159.60, and $327.60 (30% below 12 monthly payments). Code **TAYLOR** gives 40% total savings versus 12 monthly payments for the first annual term: $64.80, $136.80, and $280.80. It replaces the regular annual discount; discounts do not stack. Cards show the regular annual renewal amounts. Prices exclude applicable tax. Feature limits and billing terms remain to be finalized before checkout opens; no account credentials or payment information are collected, and no checkout or recurring charges are enabled. Live authentication, billing, subscription management, and cloud sync remain future implementation work.
 
 The landing page was checked at desktop and phone sizes, including its registration dialog, preview navigation, and horizontal overflow. Moving the studio to another path on the same origin keeps its existing storage keys; data from the previous github.io origin does not automatically migrate.
 
