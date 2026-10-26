@@ -1,6 +1,6 @@
 # Flash-Hook public mobile preview
 
-[Open Flash-Hook](https://robertbarclay67.github.io/flashhook-mobile-preview/)
+[Open Flash-Hook](https://flash-hook.com/)
 
 This standalone public interface contains no private Flash-Hook source, repository history, songs, recordings, assets, credentials, or internal documents. It has no external libraries, analytics, uploads, accounts, cloud backup, or sync. GitHub Pages serves the static HTML.
 
