@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#101317">
-  <title>FlashHook™ — Mobile Layout Preview</title>
+  <title>Flash-Hook™ — Mobile Layout Preview</title>
   <style>
     :root{font-family:system-ui,-apple-system,sans-serif;color:#edf1e9;background:#101317;color-scheme:dark;--accent:#cefc76;--accent-ink:#101317}
     *{box-sizing:border-box}body{margin:0}button,textarea,input,select,summary{font:inherit}button,select,summary{min-height:44px}button,select{border:1px solid #58636c;border-radius:12px;background:#242b30;color:#f3f5ef;padding:12px;cursor:pointer}button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:4px}header{border-bottom:2px solid var(--accent);padding:18px 16px}.header-inner{max-width:1000px;margin:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}.brand{font-weight:900;font-size:20px;letter-spacing:-.9px}.brand span{color:var(--accent)}.studio-switch{display:flex;gap:8px;flex-wrap:wrap}.pill{border-radius:30px;padding:10px 15px;font-size:13px}.active,.studio-switch [aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:800}main{max-width:800px;margin:auto;padding:20px 16px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--accent);font-weight:700}h1{font-size:clamp(32px,7vw,48px);line-height:1.08;letter-spacing:-1.5px;margin:12px 0}h2{font-size:18px;margin:0 0 12px}p{color:#b2bdc1;line-height:1.6}small{color:#b2bdc1}section{margin:22px 0}.capture{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.capture button{text-align:left;min-height:110px;border-color:var(--accent)}.capture .record{grid-column:1/-1;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:17px;min-height:80px}.record small{display:block;color:inherit;font-weight:500}.panel{border:1px solid #58636c;border-radius:16px;padding:18px;background:#1b2026;min-width:0}.tabs{display:flex;gap:7px;overflow:auto;margin:18px 0;padding:4px}.tabs button{white-space:nowrap;font-size:12px}textarea{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:130px}.item{padding:14px;border:1px solid #58636c;border-radius:10px;margin-top:9px;background:#13191e;white-space:pre-wrap;overflow-wrap:anywhere}.notice{font-size:12px;padding:12px;border-left:3px solid var(--accent);background:#20272b}.hidden{display:none}.pool{--accent:#e1e6eb;--accent-ink:#101317}.pool label{display:block;margin:10px 0;font-size:14px}.save{margin-top:10px}.status{font-size:13px;min-height:1.6em;margin:8px 0}.settings{margin-bottom:24px;border:1px solid #58636c;border-radius:14px;background:#1b2026;padding:0 14px}.settings summary{cursor:pointer;padding:12px 0;color:var(--accent);font-weight:700;width:fit-content}.settings-content{padding:0 0 16px}.settings p{font-size:14px;margin-top:4px}.color-grid{display:grid;gap:16px;margin:18px 0}.color-field label{display:block;font-weight:700;margin-bottom:8px}.color-field select{width:100%}.color-sample{display:inline-block;width:14px;height:14px;border:1px solid #b2bdc1;border-radius:50%;margin-right:8px;vertical-align:-1px}audio{display:block;width:100%;margin-top:10px}button:disabled{opacity:.45;cursor:not-allowed}footer{font-size:11px;color:#b2bdc1;padding:30px 0;line-height:1.6}@media(min-width:700px){.capture{grid-template-columns:repeat(3,minmax(0,1fr))}.capture .record{grid-column:auto}.color-grid{grid-template-columns:1fr 1fr}}@media(forced-colors:active){button[aria-pressed="true"],.active{outline:2px solid Highlight}.color-sample{forced-color-adjust:none}}
@@ -71,7 +71,7 @@
 </style>
 </head>
 <body>
-  <header><div class="header-inner"><div class="brand"><span aria-hidden="true">⚡︎</span> FLASHHOOK™</div><div class="studio-switch" id="studioButtons" role="group" aria-label="Choose studio"><button id="music" class="pill" aria-pressed="true">Music</button><button id="comedy" class="pill" aria-pressed="false">Comedy</button><button id="creator" class="pill" aria-pressed="false">Creator</button><button id="venture" class="pill" aria-pressed="false">Venture</button></div><div class="settings-anchor"><details class="settings" id="settings"><summary title="Settings" aria-label="Settings"><svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.86 1.86-.06-.06A1.7 1.7 0 0 0 16 18.4a1.7 1.7 0 0 0-1 1.56V20h-6v-.04A1.7 1.7 0 0 0 8 18.4a1.7 1.7 0 0 0-1.88.34l-.06.06-1.86-1.86.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3.04 14H3v-4h.04A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88L4.2 7.06 6.06 5.2l.06.06A1.7 1.7 0 0 0 8 5.6 1.7 1.7 0 0 0 9 4.04V4h6v.04A1.7 1.7 0 0 0 16 5.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.86 1.86-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1H21v4h-.04A1.7 1.7 0 0 0 19.4 15Z"/></svg></summary><div class="settings-content">
+  <header><div class="header-inner"><div class="brand"><span aria-hidden="true">⚡︎</span> Flash-Hook™</div><div class="studio-switch" id="studioButtons" role="group" aria-label="Choose studio"><button id="music" class="pill" aria-pressed="true">Music</button><button id="comedy" class="pill" aria-pressed="false">Comedy</button><button id="creator" class="pill" aria-pressed="false">Creator</button><button id="venture" class="pill" aria-pressed="false">Venture</button></div><div class="settings-anchor"><details class="settings" id="settings"><summary title="Settings" aria-label="Settings"><svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.86 1.86-.06-.06A1.7 1.7 0 0 0 16 18.4a1.7 1.7 0 0 0-1 1.56V20h-6v-.04A1.7 1.7 0 0 0 8 18.4a1.7 1.7 0 0 0-1.88.34l-.06.06-1.86-1.86.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3.04 14H3v-4h.04A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88L4.2 7.06 6.06 5.2l.06.06A1.7 1.7 0 0 0 8 5.6 1.7 1.7 0 0 0 9 4.04V4h6v.04A1.7 1.7 0 0 0 16 5.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.86 1.86-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1H21v4h-.04A1.7 1.7 0 0 0 19.4 15Z"/></svg></summary><div class="settings-content">
       <h2>Studio colors</h2><p id="colorHelp">Choose an accent for each studio. Changes apply immediately and stay in this browser. The shared Idea Pool keeps its neutral colors.</p>
       <div class="color-grid" id="colorFields">
         <div class="color-field"><label for="musicColor"><span id="musicSample" class="color-sample" aria-hidden="true"></span>Music accent</label><select id="musicColor" aria-describedby="colorHelp"></select></div>
@@ -92,9 +92,9 @@
       <p id="ideaStatus" class="status" role="status" aria-live="polite"></p>
     </section>
 
-    <section class="storyboard-panel" id="storyboardSection" aria-labelledby="storyboardTitle"><div class="eyebrow" style="margin-bottom:8px">FLASHHOOK WORKSHOP™ • AI DIRECTOR™™</div>
+    <section class="storyboard-panel" id="storyboardSection" aria-labelledby="storyboardTitle"><div class="eyebrow" style="margin-bottom:8px">Flash-Hook WORKSHOP™ • AI DIRECTOR™™</div>
       <div class="storyboard-head">
-        <div><div class="eyebrow" id="storyboardEyebrow">MUSIC • AI DIRECTOR™</div><h2 id="storyboardTitle">Storyboard-to-Beat™</h2><p id="storyboardIntro">Map lyrics to story beats before you generate video. FlashHook watches repeated hooks, locations, props, and pacing.</p></div>
+        <div><div class="eyebrow" id="storyboardEyebrow">MUSIC • AI DIRECTOR™</div><h2 id="storyboardTitle">Storyboard-to-Beat™</h2><p id="storyboardIntro">Map lyrics to story beats before you generate video. Flash-Hook watches repeated hooks, locations, props, and pacing.</p></div>
         <button id="loadTaylor">Load TAYLOR sample</button>
       </div>
       <div class="storyboard-controls">
@@ -140,7 +140,7 @@
         <div>
           <div class="eyebrow">CHOOSE YOUR AI</div>
           <h2 id="aiConnectionsTitle">AI Connections</h2>
-          <p>Connect the services you already use. FlashHook™ stays provider-flexible so creators can choose by quality, cost, speed, or preference instead of being locked into one ecosystem.</p>
+          <p>Connect the services you already use. Flash-Hook™ stays provider-flexible so creators can choose by quality, cost, speed, or preference instead of being locked into one ecosystem.</p>
         </div>
       </div>
 
@@ -157,17 +157,17 @@
         <div class="ai-card"><div class="ai-card-head"><h3>Suno</h3><span class="badge">Music</span></div><div class="ai-tags"><span class="ai-tag">Song generation</span><span class="ai-tag">Music ideation</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned music-provider option.</div></div>
         <div class="ai-card"><div class="ai-card-head"><h3>Anthropic / Claude</h3><span class="badge">Text • Reasoning</span></div><div class="ai-tags"><span class="ai-tag">Alternative AI Director</span><span class="ai-tag">Writing</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
         <div class="ai-card"><div class="ai-card-head"><h3>Google Gemini</h3><span class="badge">Text • Image • Multimodal</span></div><div class="ai-tags"><span class="ai-tag">Analysis</span><span class="ai-tag">Image workflows</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
-        <div class="ai-card"><div class="ai-card-head"><h3>Future / Custom Provider</h3><span class="badge">Bring Your Own AI</span></div><div class="ai-tags"><span class="ai-tag">API key / OAuth</span><span class="ai-tag">Custom routing</span></div><div class="ai-actions"><button disabled>Add provider</button><button disabled>Set routing</button></div><div class="provider-note">Designed for additional AI providers and future FlashHook AI.</div></div>
+        <div class="ai-card"><div class="ai-card-head"><h3>Future / Custom Provider</h3><span class="badge">Bring Your Own AI</span></div><div class="ai-tags"><span class="ai-tag">API key / OAuth</span><span class="ai-tag">Custom routing</span></div><div class="ai-actions"><button disabled>Add provider</button><button disabled>Set routing</button></div><div class="provider-note">Designed for additional AI providers and future Flash-Hook AI.</div></div>
       </div>
 
       <div class="notice" style="margin-top:14px">
         <strong>Provider-flexible by design.</strong><br>
-        Future routing can recommend a provider by quality, price, speed, or task type. Affiliate/referral opportunities should be tracked where permitted so FlashHook™ can drive provider growth without forcing users into a single service.
+        Future routing can recommend a provider by quality, price, speed, or task type. Affiliate/referral opportunities should be tracked where permitted so Flash-Hook™ can drive provider growth without forcing users into a single service.
       </div>
 
       <div class="notice" style="margin-top:10px">
         <strong>Two connection paths</strong><br>
-        <strong>Bring Your Own AI (BYO-AI):</strong> connect an existing provider account/API and pay FlashHook™ for the workflow layer. <strong>FlashHook Managed AI:</strong> a future option where FlashHook handles provider routing and usage behind a unified subscription or credit system.
+        <strong>Bring Your Own AI (BYO-AI):</strong> connect an existing provider account/API and pay Flash-Hook™ for the workflow layer. <strong>Flash-Hook Managed AI:</strong> a future option where Flash-Hook handles provider routing and usage behind a unified subscription or credit system.
       </div>
 
       <div class="notice" style="margin-top:10px">
@@ -185,7 +185,7 @@
     </section>
 
 
-    <footer>FlashHook™ mobile preview • Workshop™ • AI Director™ • Still-First Workflow™ • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
+    <footer>Flash-Hook™ mobile preview • Workshop™ • AI Director™ • Still-First Workflow™ • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
   </main>
   <script>
     const $ = id => document.getElementById(id);
@@ -229,7 +229,7 @@
       if ($('storyboardJump')) $('storyboardJump').classList.remove('hidden');
       if ($('storyboardTitle')) {
         const configs={
-          music:{eyebrow:'MUSIC • AI DIRECTOR™',title:'Storyboard-to-Beat™',intro:'Map lyrics to story beats before you generate video. FlashHook watches repeated hooks, locations, props, and pacing.',label:'Lyrics or sectioned lyrics',placeholder:'[Verse 1]\nRolled out of bed...\n...\n\n[Chorus]\nDo it to it...'},
+          music:{eyebrow:'MUSIC • AI DIRECTOR™',title:'Storyboard-to-Beat™',intro:'Map lyrics to story beats before you generate video. Flash-Hook watches repeated hooks, locations, props, and pacing.',label:'Lyrics or sectioned lyrics',placeholder:'[Verse 1]\nRolled out of bed...\n...\n\n[Chorus]\nDo it to it...'},
           comedy:{eyebrow:'COMEDY • AI DIRECTOR™',title:'Bit to Scenes',intro:'Turn a comedy premise into setup, escalation, callbacks, visual beats, and AI-video instructions.',label:'Bit, premise, or rough script',placeholder:'Setup: I try to fix one tiny thing...\nEscalation: everything gets worse...\nCallback: the first problem returns...'},
           creator:{eyebrow:'CREATOR • AI DIRECTOR™',title:'Concept to Scenes',intro:'Turn a tutorial, reel, short, or YouTube idea into ordered shots and AI-video instructions.',label:'Tutorial, content idea, or rough script',placeholder:'Hook: show the problem\nStep 1: demonstrate...\nStep 2: compare...\nCTA: show final result'},
           venture:{eyebrow:'VENTURE • AI DIRECTOR™',title:'Pitch to Scenes',intro:'Turn a product, pitch, or explainer idea into a clear visual story and AI-video instructions.',label:'Pitch, product concept, or explainer outline',placeholder:'Problem: ...\nSolution: ...\nDemo: ...\nProof: ...\nCTA: ...'}
@@ -320,7 +320,7 @@
     const extension=t=>t.includes('mp4')?'m4a':t.includes('ogg')?'ogg':'webm';
     function setRecButtons(active, counting=false){$('record').disabled=active||counting;$('stopRecord').disabled=!active;$('cancelRecord').disabled=!counting;}
     function openRecDb(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window))return reject(Error('IndexedDB unavailable'));const q=indexedDB.open('flashhook-preview-recordings-v1',1);q.onupgradeneeded=()=>q.result.createObjectStore('clips',{keyPath:'id'});q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error);});}
-    async function renderRecordings(){recList.replaceChildren();try{const db=await openRecDb();const items=await new Promise((resolve,reject)=>{const q=db.transaction('clips').objectStore('clips').getAll();q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});db.close();for(const clip of items.reverse()){const row=document.createElement('div');row.className='item';const title=document.createElement('div');title.textContent=new Date(clip.id).toLocaleString();const audio=document.createElement('audio');audio.controls=true;audio.preload='none';const url=URL.createObjectURL(clip.blob);audio.src=url;const download=document.createElement('a');download.href=url;download.download='FlashHook-Idea-'+clip.id+'.'+extension(clip.type);download.textContent='Download recording';download.style.cssText='display:inline-block;margin:12px 0;color:var(--accent)';row.append(title,audio,document.createElement('br'),download);recList.append(row);}}catch{recStatus.textContent='Recording library is unavailable. Download each recording when it finishes.';}}
+    async function renderRecordings(){recList.replaceChildren();try{const db=await openRecDb();const items=await new Promise((resolve,reject)=>{const q=db.transaction('clips').objectStore('clips').getAll();q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});db.close();for(const clip of items.reverse()){const row=document.createElement('div');row.className='item';const title=document.createElement('div');title.textContent=new Date(clip.id).toLocaleString();const audio=document.createElement('audio');audio.controls=true;audio.preload='none';const url=URL.createObjectURL(clip.blob);audio.src=url;const download=document.createElement('a');download.href=url;download.download='Flash-Hook-Idea-'+clip.id+'.'+extension(clip.type);download.textContent='Download recording';download.style.cssText='display:inline-block;margin:12px 0;color:var(--accent)';row.append(title,audio,document.createElement('br'),download);recList.append(row);}}catch{recStatus.textContent='Recording library is unavailable. Download each recording when it finishes.';}}
     function releaseMic(){if(mediaStream){mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;}}
     function cancelCountdown(){if(countdownTimer){clearInterval(countdownTimer);countdownTimer=null;}countdownRemaining=0;setRecButtons(false);recStatus.textContent='Countdown canceled.';}
     $('cancelRecord').onclick=cancelCountdown;
@@ -340,7 +340,7 @@
             if(!blob.size){recStatus.textContent='Empty recording. Please try again.';return;}
             const id=Date.now();
             try{const db=await openRecDb();await new Promise((resolve,reject)=>{const q=db.transaction('clips','readwrite').objectStore('clips').put({id,blob,type});q.onsuccess=resolve;q.onerror=()=>reject(q.error)});db.close();recStatus.textContent='Saved locally. Download a backup before leaving.';await renderRecordings();}
-            catch{recStatus.textContent='Could not save to browser storage. Download the recording now.';const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='FlashHook-Idea-'+id+'.'+extension(type);a.textContent='Download unsaved recording';recList.prepend(a);}
+            catch{recStatus.textContent='Could not save to browser storage. Download the recording now.';const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Flash-Hook-Idea-'+id+'.'+extension(type);a.textContent='Download unsaved recording';recList.prepend(a);}
           };
           recorder.start(1000);recordingStarted=Date.now();setRecButtons(true);recStatus.textContent='● Recording… tap Stop & save when finished.';
         }catch(err){releaseMic();setRecButtons(false);recStatus.textContent='Microphone unavailable or permission denied. Check Chrome site permissions.';}
@@ -352,7 +352,7 @@
     $('import').onclick = () => alert('Audio import is disabled in this public layout preview.');
 
 
-    // FlashHook AI Director Review
+    // Flash-Hook AI Director Review
     let lastStoryboardCards=[];
     let currentReviewTab='story';
     const esc=t=>String(t??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -376,7 +376,7 @@
       const energy=[];
       if(studio==='music'){
         if(hooks.length) energy.push({type:'good',title:'Hook payoff available',text:hooks.length+' hook beat'+(hooks.length===1?'':'s')+' can carry the recurring crowd motif.'});
-        else energy.push({type:'warn',title:'No hook detected',text:'Mark chorus/hook sections so FlashHook can repeat and escalate the visual motif.'});
+        else energy.push({type:'warn',title:'No hook detected',text:'Mark chorus/hook sections so Flash-Hook can repeat and escalate the visual motif.'});
       }else{
         energy.push({type:'good',title:'Escalation path',text:'Use early beats for setup, middle beats for development, and final beats for payoff/CTA.'});
       }
