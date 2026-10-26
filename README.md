@@ -4,11 +4,21 @@
 
 ## Public sneak peek
 
-`index.html` is the public introduction to Flash-Hook. The original working interface is preserved at `studio.html`, with a Home link. Registration and login buttons open an explicit coming-soon notice. Plans display Basic **$9/month**, Advanced **$19/month**, and Pro **$39/month**, with **Checkout coming soon** on disabled buttons. Regular annual prices are $75.60, $159.60, and $327.60 (30% below 12 monthly payments). Code **TAYLOR** gives 40% total savings versus 12 monthly payments for the first annual term: $64.80, $136.80, and $280.80. It replaces the regular annual discount; discounts do not stack. Cards show the regular annual renewal amounts. Prices exclude applicable tax. Feature limits and billing terms remain to be finalized before checkout opens; no account credentials or payment information are collected, and no checkout or recurring charges are enabled. Live authentication, billing, subscription management, and cloud sync remain future implementation work.
+`index.html` is the public introduction to Flash-Hook. The original working interface is preserved at `studio.html`, with a Home link. Registration and login link to `account.html`, backed by Supabase Authentication. Plans display Basic **$9/month**, Advanced **$19/month**, and Pro **$39/month**, with **Checkout coming soon** on disabled buttons. Regular annual prices are $75.60, $159.60, and $327.60 (30% below 12 monthly payments). Code **TAYLOR** gives 40% total savings versus 12 monthly payments for the first annual term: $64.80, $136.80, and $280.80. It replaces the regular annual discount; discounts do not stack. Cards show the regular annual renewal amounts. Prices exclude applicable tax. Feature limits and billing terms remain to be finalized before checkout opens; account credentials are sent directly to Supabase, and no payment information, checkout, or recurring charges are enabled. Billing, subscription management, and cloud sync remain future implementation work.
 
-The landing page was checked at desktop and phone sizes, including its registration dialog, preview navigation, and horizontal overflow. Moving the studio to another path on the same origin keeps its existing storage keys; data from the previous github.io origin does not automatically migrate.
+The landing page was checked at desktop and phone sizes, including preview navigation and horizontal overflow. Moving the studio to another path on the same origin keeps its existing storage keys; data from the previous github.io origin does not automatically migrate.
 
-This standalone public interface contains no private Flash-Hook source, repository history, songs, recordings, assets, credentials, or internal documents. It has no external libraries, analytics, uploads, accounts, cloud backup, or sync. GitHub Pages serves the static HTML.
+This standalone public interface contains no private Flash-Hook source, repository history, songs, recordings, assets, credentials, or internal documents. GitHub Pages serves the static interface. The account page loads a pinned Supabase client from jsDelivr and connects directly to Supabase; the studio has no analytics, uploads, cloud backup, or sync.
+
+## Accounts
+
+Registration, email confirmation, login, logout, confirmation resend, and password recovery use Supabase Authentication. The account screen uses the same HTTPS origin with an exact `https://flash-hook.com/account.html` callback. Passwords have a 12-character minimum; signup requires email confirmation. Custom SMTP uses Resend with verified `flash-hook.com` and sender `accounts@flash-hook.com`.
+
+`auth-config.js` contains only the public project URL and publishable key. SMTP and service credentials must never be committed or exposed in client code. A provider-verified user identifies the account screen; it does not grant paid features. The account session persists in this browser. Studio ideas and recordings remain local and are not attached to the account.
+
+Nine local tests passed for registration, login/logout, generic error messages, resend, recovery, callback cleanup, and rejected unverified sessions. Deployment checks confirm the public form loads and connects. A real user's signup, delivered confirmation email, login, and recovery still require an end-to-end check after deployment.
+
+Rollback: revert the authentication release commit to restore the prior coming-soon homepage. No studio storage keys or data tables are changed. Roll back if account forms cannot connect or callbacks fail; keep confirmation enabled and checkout disabled while resolving delivery issues.
 
 ## October 19, 2026 update
 
