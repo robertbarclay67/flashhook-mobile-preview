@@ -70,9 +70,10 @@
 
 </style>
 <link rel="stylesheet" href="sequencer.css">
+<link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
-  <header><div class="header-inner"><a href="./" style="color:#b2bdc1;font-size:12px;text-decoration:none;padding:8px 0" aria-label="Back to Flash-Hook home">← Home</a><div class="brand"><span aria-hidden="true">⚡︎</span> Flash-Hook™</div><div class="studio-switch" id="studioButtons" role="group" aria-label="Choose studio"><button id="music" class="pill" aria-pressed="true">Music</button><button id="comedy" class="pill" aria-pressed="false">Comedy</button><button id="creator" class="pill" aria-pressed="false">Creator</button><button id="venture" class="pill" aria-pressed="false">Venture</button></div><div class="settings-anchor"><details class="settings" id="settings"><summary title="Settings" aria-label="Settings"><svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.86 1.86-.06-.06A1.7 1.7 0 0 0 16 18.4a1.7 1.7 0 0 0-1 1.56V20h-6v-.04A1.7 1.7 0 0 0 8 18.4a1.7 1.7 0 0 0-1.88.34l-.06.06-1.86-1.86.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3.04 14H3v-4h.04A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88L4.2 7.06 6.06 5.2l.06.06A1.7 1.7 0 0 0 8 5.6 1.7 1.7 0 0 0 9 4.04V4h6v.04A1.7 1.7 0 0 0 16 5.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.86 1.86-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1H21v4h-.04A1.7 1.7 0 0 0 19.4 15Z"/></svg></summary><div class="settings-content">
+  <header><div class="header-inner"><a href="./" style="color:#b2bdc1;font-size:12px;text-decoration:none;padding:8px 0" aria-label="Back to Flash-Hook home">← Home</a><a href="capture.html" style="color:var(--accent);font-size:12px;padding:8px 0">Quick Capture</a><div class="brand"><span aria-hidden="true">⚡︎</span> Flash-Hook™</div><div class="studio-switch" id="studioButtons" role="group" aria-label="Choose studio"><button id="music" class="pill" aria-pressed="true">Music</button><button id="comedy" class="pill" aria-pressed="false">Comedy</button><button id="creator" class="pill" aria-pressed="false">Creator</button><button id="venture" class="pill" aria-pressed="false">Venture</button></div><div class="settings-anchor"><details class="settings" id="settings"><summary title="Settings" aria-label="Settings"><svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.86 1.86-.06-.06A1.7 1.7 0 0 0 16 18.4a1.7 1.7 0 0 0-1 1.56V20h-6v-.04A1.7 1.7 0 0 0 8 18.4a1.7 1.7 0 0 0-1.88.34l-.06.06-1.86-1.86.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3.04 14H3v-4h.04A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88L4.2 7.06 6.06 5.2l.06.06A1.7 1.7 0 0 0 8 5.6 1.7 1.7 0 0 0 9 4.04V4h6v.04A1.7 1.7 0 0 0 16 5.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.86 1.86-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1H21v4h-.04A1.7 1.7 0 0 0 19.4 15Z"/></svg></summary><div class="settings-content">
       <h2>Settings</h2><p><a class="settings-link" href="settings.html">AI connections &amp; shared settings ↗</a></p><h3>Studio colors</h3><p id="colorHelp">Choose an accent for each studio. Changes apply immediately and stay in this browser. The shared Idea Pool keeps its neutral colors.</p>
       <div class="color-grid" id="colorFields">
         <div class="color-field"><label for="musicColor"><span id="musicSample" class="color-sample" aria-hidden="true"></span>Music accent</label><select id="musicColor" aria-describedby="colorHelp"></select></div>
@@ -83,9 +84,9 @@
   <main>
     <div class="eyebrow" id="mode" aria-live="polite">MUSIC STUDIO</div><p id="studioDescription">Hooks, lyrics, and musical ideas.</p>
     <h1>Catch that spark.</h1><p>Capture the idea before it disappears. Develop it when you're ready.</p>
-    <div class="notice">Mobile test build • Microphone recording is experimental and saved only on this device. Download important recordings immediately; browser storage can be cleared. No cloud backup or sync.</div>
-    <section class="capture" aria-label="Capture an idea"><button class="record" id="record">● Record idea <small>3… 2… 1… then capture</small></button><button id="hook">✎<br>I've got a hook</button><button id="import">↑<br>Bring your audio</button><button id="storyboardJump">🎬<br>Storyboard-to-Beat™</button></section>
-    <section class="panel" id="recordingPanel" aria-label="Recording controls"><h2>Quick Capture</h2><p id="recordStatus" role="status" aria-live="polite">Ready. Tap Record idea to begin a countdown.</p><button id="stopRecord" disabled>Stop &amp; save</button> <button id="cancelRecord" disabled>Cancel countdown</button><div id="recordings"></div><p><small>Local recordings are private to this browser, not synced to your PC. Use Download to keep a backup. Avoid private material on shared devices.</small></p></section><section class="panel pool" aria-labelledby="poolTitle"><h2 id="poolTitle">Idea Pool <small id="count">(0)</small></h2><p>No need to categorize anything yet. Shared across every studio.</p><div id="ideas"></div>
+    <div class="notice">Capture first, choose a workshop later. Ideas save locally; sign in and enable Idea Pool sync to share them across your devices.</div>
+    <section class="capture" aria-label="Capture an idea"><button class="record" id="record">● Record idea <small>3… 2… 1… then capture</small></button><button id="hook">✎<br>I've got a hook</button><button id="import">↑<br>Bring your files</button><button id="storyboardJump">🎬<br>Storyboard-to-Beat™</button></section>
+    <section class="panel" id="recordingPanel" aria-label="Recording controls"><h2>Quick Capture</h2><p id="recordStatus" role="status" aria-live="polite">Ready. Tap Record idea to begin a countdown.</p><button id="stopRecord" disabled>Stop &amp; save</button> <button id="cancelRecord" disabled>Cancel countdown</button><p><small>Recordings appear in the Idea Pool below. Download a backup, or enable sync to access them on another device. Capture stops and saves when you leave this tab.</small></p></section><section class="panel pool" aria-labelledby="poolTitle"><h2 id="poolTitle">Idea Pool <small id="count">(0)</small></h2><p>No need to categorize anything yet. Shared across every studio.</p><div id="ideas"></div><div id="recordings" aria-label="Recorded ideas"></div>
       <div class="tabs" role="group" aria-label="Idea Pool editors"><button class="active" id="ideasTab" aria-pressed="true" aria-controls="ideasPane">Ideas</button><button id="lyricsTab" aria-pressed="false" aria-controls="lyricsPane">Lyrics</button><button id="notesTab" aria-pressed="false" aria-controls="notesPane">Key Data Points</button></div>
       <div id="ideasPane"><label for="ideaText">Hook or idea</label><textarea id="ideaText" placeholder="Write down a hook or idea..."></textarea><button id="save" class="active save">Save idea locally</button></div>
       <div id="lyricsPane" class="hidden"><label for="lyricsText">Lyrics editor preview</label><textarea id="lyricsText" placeholder="Lyrics editor preview"></textarea></div>
@@ -145,6 +146,7 @@
 
 
 
+<section class="panel pool" aria-labelledby="projectsTitle"><h2 id="projectsTitle">Projects</h2><p>Create a project, then assign any recording or imported asset using the dropdown at the end of its row. Leave it Unassigned until you’re ready.</p><label for="projectName">New project name</label><input id="projectName" maxlength="80" placeholder="For example: Do It"><button id="addProject" type="button">Add project</button><p id="projectStatus" class="status" role="status" aria-live="polite"></p></section><section class="panel pool" aria-labelledby="importTitle"><h2 id="importTitle">Bring your files</h2><label for="importFiles">Add audio, video, photos or documents</label><input id="importFiles" type="file" multiple accept=".mp3,.wav,.m4a,.ogg,.mp4,.webm,.mov,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.pdf,.doc,.docx,.txt,.md,.rtf,.xlsx,.pptx"><p class="small">Up to 25 MB per file. Files save locally first. Playback and image previews depend on your browser; documents can be attached and downloaded. AI document reading and editing are not enabled.</p><p id="importStatus" class="status" role="status" aria-live="polite"></p><div id="importedAssets"></div></section><section class="panel pool" aria-labelledby="syncTitle"><h2 id="syncTitle">Your shared Idea Pool</h2><p id="syncIdentity">Checking account…</p><p>Sync sends this device’s saved ideas, recordings and imported files to your private Flash-Hook account through Supabase. Sign in to the same account on phone and PC. Files up to 25 MB each; keep downloads as backups.</p><p><a href="account.html">Log in / Your account</a></p><button id="syncEnable">Sync this device</button> <button id="syncRefresh" disabled>Sync &amp; refresh</button> <button id="syncPause" hidden>Pause sync on this device</button><p id="syncStatus" class="status" role="status" aria-live="polite">Connecting…</p><div id="cloudIdeas"></div></section>
     <footer>Flash-Hook™ mobile preview • Workshop™ • AI Director™ • Still-First Workflow™ • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
   </main>
   <script>
@@ -252,6 +254,7 @@
     };
     $('resetColors').onclick = () => { colors = {...defaults}; applyTheme(); saveColors('Default colors restored.'); };
     applyTheme();
+    if(location.hash==='#settings') $('settings').open=true;
     function render() {
       $('count').textContent = '(' + ideas.length + ')';
       $('ideas').replaceChildren(...ideas.map(text => { const item = document.createElement('div'); item.className = 'item'; item.textContent = text; return item; }));
@@ -264,7 +267,7 @@
       ideas.unshift(text); render(); $('ideaText').value = '';
       try {
         if (!ideasReadable) throw new Error('Existing data unavailable');
-        localStorage.setItem(storageKey,JSON.stringify(ideas)); $('ideaStatus').textContent = 'Idea saved in this browser.';
+        localStorage.setItem(storageKey,JSON.stringify(ideas)); $('ideaStatus').textContent = 'Idea saved in this browser.'; document.dispatchEvent(new Event('flashhook:idea-saved'));
       } catch { $('ideaStatus').textContent = 'Idea kept for this visit only. Browser storage is unavailable or saved data could not be read. Copy your idea before leaving.'; }
     };
     for (const [id,pane] of [['ideasTab','ideasPane'],['lyricsTab','lyricsPane'],['notesTab','notesPane']]) {
@@ -274,43 +277,8 @@
       };
     }
 
-    // Quick Capture: local-only, permission-gated audio. No server uploads.
-    let recorder=null, mediaStream=null, chunks=[], countdownTimer=null, countdownRemaining=0, recordingStarted=0, recordingDb=null;
-    const recStatus=$('recordStatus'), recList=$('recordings');
-    const mime=['audio/webm;codecs=opus','audio/mp4','audio/webm'].find(t=>window.MediaRecorder?.isTypeSupported(t)) || '';
-    const extension=t=>t.includes('mp4')?'m4a':t.includes('ogg')?'ogg':'webm';
-    function setRecButtons(active, counting=false){$('record').disabled=active||counting;$('stopRecord').disabled=!active;$('cancelRecord').disabled=!counting;}
-    function openRecDb(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window))return reject(Error('IndexedDB unavailable'));const q=indexedDB.open('flashhook-preview-recordings-v1',1);q.onupgradeneeded=()=>q.result.createObjectStore('clips',{keyPath:'id'});q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error);});}
-    async function renderRecordings(){recList.replaceChildren();try{const db=await openRecDb();const items=await new Promise((resolve,reject)=>{const q=db.transaction('clips').objectStore('clips').getAll();q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});db.close();for(const clip of items.reverse()){const row=document.createElement('div');row.className='item';const title=document.createElement('div');title.textContent=new Date(clip.id).toLocaleString();const audio=document.createElement('audio');audio.controls=true;audio.preload='none';const url=URL.createObjectURL(clip.blob);audio.src=url;const download=document.createElement('a');download.href=url;download.download='Flash-Hook-Idea-'+clip.id+'.'+extension(clip.type);download.textContent='Download recording';download.style.cssText='display:inline-block;margin:12px 0;color:var(--accent)';row.append(title,audio,document.createElement('br'),download);recList.append(row);}}catch{recStatus.textContent='Recording library is unavailable. Download each recording when it finishes.';}}
-    function releaseMic(){if(mediaStream){mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;}}
-    function cancelCountdown(){if(countdownTimer){clearInterval(countdownTimer);countdownTimer=null;}countdownRemaining=0;setRecButtons(false);recStatus.textContent='Countdown canceled.';}
-    $('cancelRecord').onclick=cancelCountdown;
-    $('record').onclick=()=>{
-      if(!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder){recStatus.textContent='Microphone recording is not supported in this browser.';return;}
-      countdownRemaining=3;setRecButtons(false,true);recStatus.textContent='Recording in '+countdownRemaining+'…';
-      countdownTimer=setInterval(async()=>{
-        countdownRemaining--;if(countdownRemaining>0){recStatus.textContent='Recording in '+countdownRemaining+'…';return;}
-        clearInterval(countdownTimer);countdownTimer=null;recStatus.textContent='Requesting microphone permission…';
-        try{
-          mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});
-          chunks=[];recorder=new MediaRecorder(mediaStream,mime?{mimeType:mime}:undefined);
-          recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
-          recorder.onerror=()=>{recStatus.textContent='Recording error. Try again.';releaseMic();setRecButtons(false);};
-          recorder.onstop=async()=>{
-            const type=recorder.mimeType||mime||'audio/webm';const blob=new Blob(chunks,{type});releaseMic();setRecButtons(false);
-            if(!blob.size){recStatus.textContent='Empty recording. Please try again.';return;}
-            const id=Date.now();
-            try{const db=await openRecDb();await new Promise((resolve,reject)=>{const q=db.transaction('clips','readwrite').objectStore('clips').put({id,blob,type});q.onsuccess=resolve;q.onerror=()=>reject(q.error)});db.close();recStatus.textContent='Saved locally. Download a backup before leaving.';await renderRecordings();}
-            catch{recStatus.textContent='Could not save to browser storage. Download the recording now.';const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Flash-Hook-Idea-'+id+'.'+extension(type);a.textContent='Download unsaved recording';recList.prepend(a);}
-          };
-          recorder.start(1000);recordingStarted=Date.now();setRecButtons(true);recStatus.textContent='● Recording… tap Stop & save when finished.';
-        }catch(err){releaseMic();setRecButtons(false);recStatus.textContent='Microphone unavailable or permission denied. Check Chrome site permissions.';}
-      },1000);
-    };
-    $('stopRecord').onclick=()=>{if(recorder?.state==='recording'){recStatus.textContent='Saving recording…';recorder.stop();$('stopRecord').disabled=true;}};
-    renderRecordings();
     $('hook').onclick = () => { $('ideasTab').click(); $('ideaText').focus(); };
-    $('import').onclick = () => alert('Audio import is disabled in this public layout preview.');
+
 
 
     // Flash-Hook AI Director Review
@@ -520,7 +488,7 @@ Do it to it`,
     }catch{}
 
   </script>
-<script src="sequencer.js"></script>
+<script src="sequencer.js"></script><script src="projects.js"></script><script src="imports.js"></script><script src="recorder.js"></script><script src="auth-config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0"></script><script src="pool-sync.js"></script>
 </body>
 </html>
 
