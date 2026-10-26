@@ -51,3 +51,11 @@ This update preserves the newer gear UI, Creator/Venture studios, and local reco
 Deploy the repository root from `main` through the existing GitHub Pages build; no dependencies are required. Confirm the Pages Actions run succeeds and the public page shows the Creator/Venture descriptions. If loading, switching, or idea saving regresses, revert the interface commit and let Pages redeploy. Separate storage keys preserve saved ideas during an interface rollback.
 
 To disable hosting, use repository **Settings → Pages → Branch → None → Save**; that does not delete the public repository.
+
+## Music sequencer and shared Settings
+
+AI provider information now lives on `settings.html`, reachable from the workshop gear. Provider connections remain disabled and marked coming soon. Internal partner/research notes are not displayed as customer controls.
+
+Music includes a four-track, 16-step sequencer with synthesized kick, snare, hi-hat and clap, tempo (40–240 BPM), volume, presets, moving playhead and local pattern persistence. Save beat to Idea Pool writes a text pattern without losing an existing idea draft. Playback stops on studio switches, hidden tabs, and page exit. The sequencer appears only in Music.
+
+Validated locally: step editing and reload persistence, moving playhead, stop-on-studio-switch, save to Idea Pool, Settings navigation, and 390px layout without page overflow (the step grid scrolls horizontally). No microphone recording or real-device audio test was performed. Existing recording, idea storage, themes and storyboarding remain in place. Roll back this release if those flows regress.

@@ -69,10 +69,11 @@
 .approve-generate{background:var(--accent);color:var(--accent-ink);font-weight:850;border-color:var(--accent)}
 
 </style>
+<link rel="stylesheet" href="sequencer.css">
 </head>
 <body>
   <header><div class="header-inner"><a href="./" style="color:#b2bdc1;font-size:12px;text-decoration:none;padding:8px 0" aria-label="Back to Flash-Hook home">← Home</a><div class="brand"><span aria-hidden="true">⚡︎</span> Flash-Hook™</div><div class="studio-switch" id="studioButtons" role="group" aria-label="Choose studio"><button id="music" class="pill" aria-pressed="true">Music</button><button id="comedy" class="pill" aria-pressed="false">Comedy</button><button id="creator" class="pill" aria-pressed="false">Creator</button><button id="venture" class="pill" aria-pressed="false">Venture</button></div><div class="settings-anchor"><details class="settings" id="settings"><summary title="Settings" aria-label="Settings"><svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.86 1.86-.06-.06A1.7 1.7 0 0 0 16 18.4a1.7 1.7 0 0 0-1 1.56V20h-6v-.04A1.7 1.7 0 0 0 8 18.4a1.7 1.7 0 0 0-1.88.34l-.06.06-1.86-1.86.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3.04 14H3v-4h.04A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88L4.2 7.06 6.06 5.2l.06.06A1.7 1.7 0 0 0 8 5.6 1.7 1.7 0 0 0 9 4.04V4h6v.04A1.7 1.7 0 0 0 16 5.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 1.86 1.86-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1H21v4h-.04A1.7 1.7 0 0 0 19.4 15Z"/></svg></summary><div class="settings-content">
-      <h2>Studio colors</h2><p id="colorHelp">Choose an accent for each studio. Changes apply immediately and stay in this browser. The shared Idea Pool keeps its neutral colors.</p>
+      <h2>Settings</h2><p><a class="settings-link" href="settings.html">AI connections &amp; shared settings ↗</a></p><h3>Studio colors</h3><p id="colorHelp">Choose an accent for each studio. Changes apply immediately and stay in this browser. The shared Idea Pool keeps its neutral colors.</p>
       <div class="color-grid" id="colorFields">
         <div class="color-field"><label for="musicColor"><span id="musicSample" class="color-sample" aria-hidden="true"></span>Music accent</label><select id="musicColor" aria-describedby="colorHelp"></select></div>
         <div class="color-field"><label for="comedyColor"><span id="comedySample" class="color-sample" aria-hidden="true"></span>Comedy accent</label><select id="comedyColor" aria-describedby="colorHelp"></select></div>
@@ -92,6 +93,12 @@
       <p id="ideaStatus" class="status" role="status" aria-live="polite"></p>
     </section>
 
+<section class="panel sequencer" id="sequencerSection" aria-labelledby="sequencerTitle">
+<div class="seq-heading"><div><div class="eyebrow">MUSIC WORKSHOP</div><h2 id="sequencerTitle">Beat sequencer</h2><p>Tap the steps. Find your groove.</p></div><span class="seq-meter" id="seqPosition">Ready · 16 steps</span></div>
+<div class="seq-controls"><button id="seqPlay" class="active" type="button" aria-pressed="false">▶ Play beat</button><label for="seqTempo">Tempo <input id="seqTempo" type="number" min="40" max="240" value="110" step="1"> BPM</label><label for="seqVolume">Volume <input id="seqVolume" type="range" min="0" max="100" value="55"></label></div>
+<div class="seq-scroll" role="region" aria-label="16-step drum pattern, scroll horizontally on smaller screens" tabindex="0"><div id="seqGrid" class="seq-grid"></div></div>
+<div class="seq-controls"><label for="seqPreset">Starting groove <select id="seqPreset"><option value="straight">Straight</option><option value="house">Four on the floor</option><option value="half">Half-time</option><option value="empty">Blank</option></select></label><button id="seqLoad" type="button">Load groove</button><button id="seqSave" type="button">Save beat to Idea Pool</button></div>
+<p id="seqStatus" class="status" role="status" aria-live="polite">Synthesized drum sounds · Pattern saved in this browser · Press Play to enable sound.</p></section>
     <section class="storyboard-panel" id="storyboardSection" aria-labelledby="storyboardTitle"><div class="eyebrow" style="margin-bottom:8px">Flash-Hook WORKSHOP™ • AI DIRECTOR™™</div>
       <div class="storyboard-head">
         <div><div class="eyebrow" id="storyboardEyebrow">MUSIC • AI DIRECTOR™</div><h2 id="storyboardTitle">Storyboard-to-Beat™</h2><p id="storyboardIntro">Map lyrics to story beats before you generate video. Flash-Hook watches repeated hooks, locations, props, and pacing.</p></div>
@@ -135,54 +142,7 @@
       </div>
     </section>
 
-    <section class="ai-connections" id="aiConnections" aria-labelledby="aiConnectionsTitle">
-      <div class="storyboard-head">
-        <div>
-          <div class="eyebrow">CHOOSE YOUR AI</div>
-          <h2 id="aiConnectionsTitle">AI Connections</h2>
-          <p>Connect the services you already use. Flash-Hook™ stays provider-flexible so creators can choose by quality, cost, speed, or preference instead of being locked into one ecosystem.</p>
-        </div>
-      </div>
 
-      <div class="tabs" role="group" aria-label="AI provider routing preferences">
-        <button class="active" aria-pressed="true">Auto / Best Fit</button>
-        <button aria-pressed="false">Lowest Cost</button>
-        <button aria-pressed="false">Highest Quality</button>
-        <button aria-pressed="false">My Preferred Providers</button>
-      </div>
-
-      <div class="ai-grid">
-        <div class="ai-card"><div class="ai-card-head"><h3>OpenAI / ChatGPT</h3><span class="badge">Text • Reasoning • Voice</span></div><div class="ai-tags"><span class="ai-tag">AI Director™</span><span class="ai-tag">Prompt building</span><span class="ai-tag">Analysis</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Connection workflow planned.</div></div>
-        <div class="ai-card"><div class="ai-card-head"><h3>Runway</h3><span class="badge">Image • Video • Audio</span></div><div class="ai-tags"><span class="ai-tag">Still-First Workflow™</span><span class="ai-tag">Animation</span><span class="ai-tag">SFX</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Primary visual generation provider used in current prototyping.</div></div>
-        <div class="ai-card"><div class="ai-card-head"><h3>Suno</h3><span class="badge">Music</span></div><div class="ai-tags"><span class="ai-tag">Song generation</span><span class="ai-tag">Music ideation</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned music-provider option.</div></div>
-        <div class="ai-card"><div class="ai-card-head"><h3>Anthropic / Claude</h3><span class="badge">Text • Reasoning</span></div><div class="ai-tags"><span class="ai-tag">Alternative AI Director</span><span class="ai-tag">Writing</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
-        <div class="ai-card"><div class="ai-card-head"><h3>Google Gemini</h3><span class="badge">Text • Image • Multimodal</span></div><div class="ai-tags"><span class="ai-tag">Analysis</span><span class="ai-tag">Image workflows</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
-        <div class="ai-card"><div class="ai-card-head"><h3>Future / Custom Provider</h3><span class="badge">Bring Your Own AI</span></div><div class="ai-tags"><span class="ai-tag">API key / OAuth</span><span class="ai-tag">Custom routing</span></div><div class="ai-actions"><button disabled>Add provider</button><button disabled>Set routing</button></div><div class="provider-note">Designed for additional AI providers and future Flash-Hook AI.</div></div>
-      </div>
-
-      <div class="notice" style="margin-top:14px">
-        <strong>Provider-flexible by design.</strong><br>
-        Future routing can recommend a provider by quality, price, speed, or task type. Affiliate/referral opportunities should be tracked where permitted so Flash-Hook™ can drive provider growth without forcing users into a single service.
-      </div>
-
-      <div class="notice" style="margin-top:10px">
-        <strong>Two connection paths</strong><br>
-        <strong>Bring Your Own AI (BYO-AI):</strong> connect an existing provider account/API and pay Flash-Hook™ for the workflow layer. <strong>Flash-Hook Managed AI:</strong> a future option where Flash-Hook handles provider routing and usage behind a unified subscription or credit system.
-      </div>
-
-      <div class="notice" style="margin-top:10px">
-        <strong>AFFILIATE / PARTNER STATUS</strong><br>
-        <strong>Verified affiliate:</strong> Runway, ElevenLabs, Fish Audio, Hailuo AI. 
-        <strong>Partner / creator programs:</strong> OpenAI Partner Network, Claude Partner Network, Google Cloud Partner Network, Luma Creative Partner Program. 
-        <strong>Free / local cost-control candidates:</strong> Ollama, LM Studio, ComfyUI, FLUX, Stable Diffusion / Stable Audio, ACE-Step. 
-        <strong>Research / candidate:</strong> OpenRouter, Groq, Suno, Pika and other providers where an official affiliate program has not yet been verified. Status must be re-checked before public promotion.
-      </div>
-
-      <div class="notice" style="margin-top:10px">
-        <strong>Provider tracker</strong><br>
-        Prototype/research stack tracked so far: OpenAI / ChatGPT; Runway; Suno; Anthropic / Claude; Google Gemini; ElevenLabs; Fish Audio / Fish Speech; Hailuo AI / MiniMax; Luma; Pika; OpenRouter; Groq; Ollama; LM Studio; ComfyUI; FLUX / Black Forest Labs; Stability AI / Stable Diffusion / Stable Audio; ACE-Step; Google Lyria; GitHub for deployment/versioning; and Canva for design workflows. Keep this registry current as providers are tested, rejected, replaced, promoted to supported status, or gain affiliate/partner programs.
-      </div>
-    </section>
 
 
     <footer>Flash-Hook™ mobile preview • Workshop™ • AI Director™ • Still-First Workflow™ • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
@@ -221,6 +181,7 @@
       }
     } catch { $('colorStatus').textContent = 'Saved colors are unavailable. Default colors are active.'; }
     function applyTheme() {
+      if ($('sequencerSection')) { $('sequencerSection').hidden = studio !== 'music'; document.dispatchEvent(new CustomEvent('flashhook:studio',{detail:studio})); }
       document.documentElement.style.setProperty('--accent',palette[colors[studio]][1]);
       $('mode').textContent = categories.find(c => c.id === studio).name.toUpperCase() + ' STUDIO';
       $('studioDescription').textContent = studioDescriptions[studio] || 'Capture and develop ideas for this category.';
@@ -559,5 +520,7 @@ Do it to it`,
     }catch{}
 
   </script>
+<script src="sequencer.js"></script>
 </body>
 </html>
+
