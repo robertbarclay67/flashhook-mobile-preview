@@ -1,6 +1,12 @@
-# Flash-Hook public mobile preview
+# Flash-Hook sneak peek and studio preview
 
-[Open Flash-Hook](https://flash-hook.com/)
+[Open Flash-Hook](https://flash-hook.com/) · [Try the studio preview](https://flash-hook.com/studio.html)
+
+## Public sneak peek
+
+`index.html` is the public introduction to Flash-Hook. The original working interface is preserved at `studio.html`, with a Home link. Registration and login buttons open an explicit coming-soon notice. Plans display **Plans coming soon**; no account credentials or payment information are collected, and no checkout or recurring charges are enabled. Live authentication, billing, subscription management, and cloud sync remain future implementation work.
+
+The landing page was checked at desktop and phone sizes, including its registration dialog, preview navigation, and horizontal overflow. Moving the studio to another path on the same origin keeps its existing storage keys; data from the previous github.io origin does not automatically migrate.
 
 This standalone public interface contains no private Flash-Hook source, repository history, songs, recordings, assets, credentials, or internal documents. It has no external libraries, analytics, uploads, accounts, cloud backup, or sync. GitHub Pages serves the static HTML.
 
