@@ -68,6 +68,27 @@
 .review-actions button{flex:1;min-width:150px}
 .approve-generate{background:var(--accent);color:var(--accent-ink);font-weight:850;border-color:var(--accent)}
 
+
+/* Key Data Point cache + provider router */
+.kdp-panel,.provider-router{margin-top:18px;border-top:1px solid #45505a;padding-top:16px}
+.kdp-grid,.provider-grid{display:grid;gap:12px}
+.kdp-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.kdp-row input,.provider-grid select{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:44px}
+.kdp-list{display:grid;gap:8px;margin-top:10px}
+.kdp-item{display:flex;gap:10px;align-items:flex-start;border:1px solid #45505a;border-radius:10px;background:#12171c;padding:10px}
+.kdp-item input{margin-top:4px}
+.kdp-text{flex:1}
+.kdp-meta{font-size:11px;color:#b2bdc1;margin-top:3px}
+.provider-cards{display:grid;gap:10px;margin-top:10px}
+.provider-card{border:1px solid #45505a;border-radius:12px;background:#12171c;padding:12px}
+.provider-card strong{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tier{font-size:11px;padding:3px 7px;border-radius:999px;border:1px solid #58636c;color:#cfd6d8}
+.tier.free{border-color:var(--accent);color:var(--accent)}
+.tier.trial{border-color:#ffdc80;color:#ffdc80}
+.priority-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lock-banner{border-left:3px solid var(--accent);background:#20272b;padding:10px 12px;border-radius:6px;font-size:12px}
+@media(max-width:560px){.priority-row{grid-template-columns:1fr}.kdp-row{grid-template-columns:1fr}}
+
 </style>
 <link rel="stylesheet" href="sequencer.css">
 <link rel="manifest" href="manifest.webmanifest">
