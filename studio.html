@@ -128,6 +128,20 @@
 .kdp-item input{margin-top:4px}.kdp-text{flex:1}.kdp-meta{font-size:11px;color:#b2bdc1;margin-top:3px}
 .lock-banner{border-left:3px solid var(--accent);background:#20272b;padding:10px 12px;border-radius:6px;font-size:12px}
 @media(max-width:560px){.kdp-row{grid-template-columns:1fr}}
+
+/* Guided studio workflow */
+.workflow-nav{position:sticky;top:0;z-index:15;background:#101317ee;backdrop-filter:blur(10px);border:1px solid #45505a;border-radius:14px;padding:10px;margin:14px 0 20px;overflow:auto}
+.workflow-nav-inner{display:flex;gap:8px;min-width:max-content}
+.workflow-step-link{display:flex;align-items:center;gap:7px;text-decoration:none;color:#edf1e9;border:1px solid #45505a;border-radius:999px;padding:9px 12px;font-size:12px;white-space:nowrap}
+.workflow-step-link span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#242b30;color:var(--accent);font-weight:800}
+.workflow-section{scroll-margin-top:88px;border:1px solid #45505a;border-radius:18px;padding:18px;background:#151b20;margin:22px 0}
+.workflow-section-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.workflow-number{display:grid;place-items:center;flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:900}
+.workflow-section-head h2{margin:0 0 4px;font-size:21px}.workflow-section-head p{margin:0}
+.workflow-next{display:flex;justify-content:flex-end;margin-top:14px}
+.workflow-next a{color:var(--accent);text-decoration:none;font-weight:700}
+.workflow-note{font-size:12px;color:#b2bdc1;margin:8px 0 0}
+
 </style>
 <link rel="stylesheet" href="sequencer.css">
 <link rel="manifest" href="manifest.webmanifest">
@@ -145,7 +159,19 @@
     <div class="eyebrow" id="mode" aria-live="polite">MUSIC STUDIO</div><p id="studioDescription">Hooks, lyrics, and musical ideas.</p>
     <h1>Catch that spark.</h1><p>Capture the idea before it disappears. Develop it when you're ready.</p>
     <div class="notice">Capture first, choose a workshop later. Ideas save locally; sign in and enable Idea Pool sync to share them across your devices.</div>
-    <section class="capture" aria-label="Capture an idea"><button class="record" id="record">● Record idea <small>3… 2… 1… then capture</small></button><button id="hook">✎<br>I've got a hook</button><button id="import">↑<br>Bring your files</button><button id="storyboardJump">🎬<br>Storyboard-to-Beat™</button></section>
+    <nav class="workflow-nav" aria-label="FlashHook workflow">
+      <div class="workflow-nav-inner">
+        <a class="workflow-step-link" href="#step1"><span>1</span>Capture</a>
+        <a class="workflow-step-link" href="#step2"><span>2</span>Build</a>
+        <a class="workflow-step-link" href="#step3"><span>3</span>Plan</a>
+        <a class="workflow-step-link" href="#step4"><span>4</span>Perform</a>
+        <a class="workflow-step-link" href="#step5"><span>5</span>Finish</a>
+        <a class="workflow-step-link" href="#step6"><span>6</span>Projects</a>
+      </div>
+    </nav>
+    <section class="workflow-section" id="step1" aria-labelledby="step1Title">
+      <div class="workflow-section-head"><div class="workflow-number">1</div><div><h2 id="step1Title">Capture the idea</h2><p>Record, type, or import the spark before you worry about structure.</p></div></div>
+      <section class="capture" aria-label="Capture an idea"><button class="record" id="record">● Record idea <small>3… 2… 1… then capture</small></button><button id="hook">✎<br>I've got a hook</button><button id="import">↑<br>Bring your files</button><button id="storyboardJump">🎬<br>Storyboard-to-Beat™</button></section>
     <section class="panel" id="recordingPanel" aria-label="Recording controls"><h2>Quick Capture</h2><p id="recordStatus" role="status" aria-live="polite">Ready. Tap Record idea to begin a countdown.</p><button id="stopRecord" disabled>Stop &amp; save</button> <button id="cancelRecord" disabled>Cancel countdown</button><p><small>Recordings appear in the Idea Pool below. Download a backup, or enable sync to access them on another device. Capture stops and saves when you leave this tab.</small></p></section><section class="panel pool" aria-labelledby="poolTitle"><h2 id="poolTitle">Idea Pool <small id="count">(0)</small></h2><p>No need to categorize anything yet. Shared across every studio.</p><div id="ideas"></div><div id="recordings" aria-label="Recorded ideas"></div>
       <div class="tabs" role="group" aria-label="Idea Pool editors"><button class="active" id="ideasTab" aria-pressed="true" aria-controls="ideasPane">Ideas</button><button id="lyricsTab" aria-pressed="false" aria-controls="lyricsPane">Lyrics</button><button id="notesTab" aria-pressed="false" aria-controls="notesPane">Key Data Points</button></div>
       <div id="ideasPane"><label for="ideaText">Hook or idea</label><textarea id="ideaText" placeholder="Write down a hook or idea..."></textarea><button id="save" class="active save">Save idea locally</button></div>
@@ -216,7 +242,11 @@
   <p class="status" id="teleStatus" role="status" aria-live="polite"></p>
 
 </section>
+  <div class="workflow-next"><a href="#step5">Next: Finish the video →</a></div>
+</section>
 
+<section class="workflow-section" id="step5" aria-labelledby="step5Title">
+  <div class="workflow-section-head"><div class="workflow-number">5</div><div><h2 id="step5Title">Finish & brand</h2><p>Add text, title cards, backgrounds, and green-screen effects using project assets.</p></div></div>
 <section class="finish-panel" id="finishingSection" aria-labelledby="finishingTitle">
   <div class="storyboard-head">
     <div><div class="eyebrow">SHARED PRODUCTION TOOL</div><h2 id="finishingTitle">Video Finishing</h2><p>Use imported project assets for title cards, text overlays, backgrounds, and green-screen replacement.</p></div>
@@ -259,6 +289,11 @@
 <div class="seq-scroll" role="region" aria-label="16-step drum pattern, scroll horizontally on smaller screens" tabindex="0"><div id="seqGrid" class="seq-grid"></div></div>
 <div class="seq-controls"><label for="seqPreset">Starting groove <select id="seqPreset"><option value="straight">Straight</option><option value="house">Four on the floor</option><option value="half">Half-time</option><option value="empty">Blank</option></select></label><button id="seqLoad" type="button">Load groove</button><button id="seqSave" type="button">Save beat to Idea Pool</button></div>
 <p id="seqStatus" class="status" role="status" aria-live="polite">Synthesized drum sounds · Pattern saved in this browser · Press Play to enable sound.</p></section>
+  <div class="workflow-next"><a href="#step3">Next: Plan the production →</a></div>
+</section>
+
+<section class="workflow-section" id="step3" aria-labelledby="step3Title">
+  <div class="workflow-section-head"><div class="workflow-number">3</div><div><h2 id="step3Title">Plan with AI Director</h2><p>Turn the idea into scenes, lock Key Data Points, review continuity, then approve the production plan.</p></div></div>
     <section class="storyboard-panel" id="storyboardSection" aria-labelledby="storyboardTitle"><div class="eyebrow" style="margin-bottom:8px">Flash-Hook WORKSHOP™ • AI DIRECTOR™™</div>
       <div class="storyboard-head">
         <div><div class="eyebrow" id="storyboardEyebrow">MUSIC • AI DIRECTOR™</div><h2 id="storyboardTitle">Storyboard-to-Beat™</h2><p id="storyboardIntro">Map lyrics to story beats before you generate video. Flash-Hook watches repeated hooks, locations, props, and pacing.</p></div>
@@ -317,6 +352,8 @@
 
 
 <section class="panel pool" aria-labelledby="projectsTitle"><h2 id="projectsTitle">Projects</h2><p>Create a project, then assign any recording or imported asset using the dropdown at the end of its row. Leave it Unassigned until you’re ready.</p><label for="projectName">New project name</label><input id="projectName" maxlength="80" placeholder="For example: Do It"><button id="addProject" type="button">Add project</button><p id="projectStatus" class="status" role="status" aria-live="polite"></p></section><section class="panel pool" aria-labelledby="importTitle"><h2 id="importTitle">Bring your files</h2><label for="importFiles">Add audio, video, photos or documents</label><input id="importFiles" type="file" multiple accept=".mp3,.wav,.m4a,.ogg,.mp4,.webm,.mov,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.pdf,.doc,.docx,.txt,.md,.rtf,.xlsx,.pptx"><p class="small">Up to 25 MB per file. Files save locally first. Playback and image previews depend on your browser; documents can be attached and downloaded. AI document reading and editing are not enabled.</p><p id="importStatus" class="status" role="status" aria-live="polite"></p><div id="importedAssets"></div></section><section class="panel pool" aria-labelledby="syncTitle"><h2 id="syncTitle">Your shared Idea Pool</h2><p id="syncIdentity">Checking account…</p><p>Sync sends this device’s saved ideas, recordings and imported files to your private Flash-Hook account through Supabase. Sign in to the same account on phone and PC. Files up to 25 MB each; keep downloads as backups.</p><p><a href="account.html">Log in / Your account</a></p><button id="syncEnable">Sync this device</button> <button id="syncRefresh" disabled>Sync &amp; refresh</button> <button id="syncPause" hidden>Pause sync on this device</button><p id="syncStatus" class="status" role="status" aria-live="polite">Connecting…</p><div id="cloudIdeas"></div></section>
+  <div class="workflow-note">You can jump between steps at any time using the workflow bar above.</div>
+</section>
     <footer>Flash-Hook™ mobile preview • Workshop™ • AI Director™ • Still-First Workflow™ • Public temporary interface • No private assets • This is not the full Phase 1 app.</footer>
   </main>
   <script>
@@ -358,6 +395,15 @@
       $('mode').textContent = categories.find(c => c.id === studio).name.toUpperCase() + ' STUDIO';
       $('studioDescription').textContent = studioDescriptions[studio] || 'Capture and develop ideas for this category.';
       $('hook').textContent = studio === 'music' ? "✎ I've got a hook" : studio === 'comedy' ? "✎ I've got a bit" : "✎ I've got an idea";
+      if ($('step2Desc')) {
+        const buildCopy={
+          music:'Shape the song with beat, lyrics, and musical structure before planning visuals.',
+          comedy:'Develop the bit, beats, callbacks, and timing before planning the performance.',
+          creator:'Structure the tutorial, reel, or content idea before planning shots.',
+          venture:'Shape the pitch, commercial, or explainer before planning scenes.'
+        };
+        $('step2Desc').textContent=buildCopy[studio]||'Shape the idea with the tools for this studio.';
+      }
       if ($('teleprompterSection')) {
         const teleCfg={
           music:{eyebrow:'MUSIC • PERFORMANCE',intro:'Perform lyrics on camera with a clean, readable prompt and timing controls.',label:'Lyrics / performance script',mode:'Performance',hint:'Use this for singing, rapping, lip-sync reference, or on-camera performance takes.'},
