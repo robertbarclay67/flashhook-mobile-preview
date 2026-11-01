@@ -107,6 +107,21 @@
 .tele-hint{font-size:12px;color:#b2bdc1}
 @media(max-width:560px){.tele-row,.tele-meta{grid-template-columns:1fr}.tele-controls button{min-width:100%}}
 
+
+/* Teleprompter camera recording */
+.tele-camera{margin-top:14px;border-top:1px solid #45505a;padding-top:14px}
+.tele-camera-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tele-preview{position:relative;border:1px solid #45505a;border-radius:14px;overflow:hidden;background:#050709;min-height:220px}
+.tele-preview video{display:block;width:100%;height:100%;object-fit:cover;min-height:220px}
+.tele-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:18px;pointer-events:none;background:linear-gradient(transparent 45%,rgba(0,0,0,.65))}
+.tele-overlay-text{font-weight:800;font-size:clamp(22px,4vw,40px);line-height:1.35;text-align:center;white-space:pre-wrap;text-shadow:0 2px 10px #000}
+.tele-camera-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tele-camera-actions button{flex:1;min-width:130px}
+.tele-takes{margin-top:12px;display:grid;gap:10px}
+.tele-take{border:1px solid #45505a;border-radius:12px;background:#12171c;padding:10px}
+.tele-take video{width:100%;border-radius:8px;margin-top:8px}
+@media(max-width:700px){.tele-camera-grid{grid-template-columns:1fr}}
+
 </style>
 <link rel="stylesheet" href="sequencer.css">
 <link rel="manifest" href="manifest.webmanifest">
@@ -165,7 +180,33 @@
     <div class="tele-chip"><strong id="teleEstimate">0:00</strong><small>est. read time</small></div>
     <div class="tele-chip"><strong id="teleModeName">Performance</strong><small>studio mode</small></div>
   </div>
-  <p class="tele-hint" id="teleHint">Music mode can follow lyrics or a performance script. Camera recording hookup comes next.</p>
+  <p class="tele-hint" id="teleHint">Music mode can follow lyrics or a performance script.</p>
+  <div class="tele-camera" id="teleCameraBlock">
+    <div class="tele-head"><div><div class="eyebrow">ON-CAMERA TAKE</div><h2>Record with Teleprompter</h2><p>Use your camera while the prompt runs, then keep the take with this project or attach it to the storyboard scene.</p></div></div>
+    <div class="tele-camera-grid">
+      <div class="tele-preview">
+        <video id="teleCameraPreview" playsinline muted></video>
+        <div class="tele-overlay"><div class="tele-overlay-text" id="teleOverlayText">Camera preview</div></div>
+      </div>
+      <div>
+        <div class="tele-row">
+          <div><label for="teleCameraSelect">Camera</label><select id="teleCameraSelect"><option value="user">Front camera</option><option value="environment">Rear camera</option></select></div>
+          <div><label for="teleVideoQuality">Quality</label><select id="teleVideoQuality"><option value="720">720p</option><option value="1080" selected>1080p</option></select></div>
+        </div>
+        <div class="tele-camera-actions">
+          <button id="teleEnableCamera" type="button">Enable camera</button>
+          <button id="teleRecordTake" class="active" type="button" disabled>● Record take</button>
+          <button id="teleStopTake" type="button" disabled>Stop &amp; save</button>
+        </div>
+        <div class="tele-camera-actions">
+          <button id="teleAttachTake" type="button" disabled>Attach latest take to scene</button>
+          <button id="teleFlipCamera" type="button">Flip camera</button>
+        </div>
+        <p class="status" id="teleCameraStatus" role="status" aria-live="polite">Camera is off.</p>
+      </div>
+    </div>
+    <div class="tele-takes" id="teleTakes"></div>
+  </div>
   <p class="status" id="teleStatus" role="status" aria-live="polite"></p>
 </section>
 
