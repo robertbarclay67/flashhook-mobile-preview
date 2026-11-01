@@ -4,4 +4,38 @@
         <div class="ai-card"><div class="ai-card-head"><h3>Suno</h3><span class="badge">Music</span></div><div class="ai-tags"><span class="ai-tag">Song generation</span><span class="ai-tag">Music ideation</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned music-provider option.</div></div>
         <div class="ai-card"><div class="ai-card-head"><h3>Anthropic / Claude</h3><span class="badge">Text • Reasoning</span></div><div class="ai-tags"><span class="ai-tag">Alternative AI Director</span><span class="ai-tag">Writing</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
         <div class="ai-card"><div class="ai-card-head"><h3>Google Gemini</h3><span class="badge">Text • Image • Multimodal</span></div><div class="ai-tags"><span class="ai-tag">Analysis</span><span class="ai-tag">Image workflows</span></div><div class="ai-actions"><button disabled>Connect</button><button disabled>Set preferred</button></div><div class="provider-note">Planned provider option.</div></div>
-        <div class="ai-card"><div class="ai-card-head"><h3>Future / Custom Provider</h3><span class="badge">Bring Your Own AI</span></div><div class="ai-tags"><span class="ai-tag">API key / OAuth</span><span class="ai-tag">Custom routing</span></div><div class="ai-actions"><button disabled>Add provider</button><button disabled>Set routing</button></div><div class="provider-note">Designed for additional AI providers and future Flash-Hook AI.</div></div></div><div class="note"><strong>Choose your own tools.</strong><p>Planned options include your own provider accounts and Flash-Hook AI allowances. Supported services and usage limits will be confirmed before paid checkout opens.</p></div></section><section id="shortcuts"><h2>Your capture shortcuts</h2><p>Two entry points: Quick Capture opens the recorder, and Flash-Hook opens the full app. Recording stays available inside the app too.</p><div class="settings-nav"><a href="capture.html">Open Quick Capture</a><a href="capture.html?start=1">Launch countdown capture</a><a href="Flash-Hook-Capture.url" download>PC Capture shortcut</a><a href="Flash-Hook.url" download>PC App shortcut</a></div><p>On PC, save the two shortcut files to your Desktop. On your phone, use the countdown-capture address when configuring a button or home-screen shortcut. The phone’s button mapping depends on its model. Browser microphone permission is required; some browsers may need a tap to begin.</p></section></main><footer><a href="studio.html">Open workshops</a><span>Checkout coming soon</span></footer></body></html>
+        <div class="ai-card"><div class="ai-card-head"><h3>Future / Custom Provider</h3><span class="badge">Bring Your Own AI</span></div><div class="ai-tags"><span class="ai-tag">API key / OAuth</span><span class="ai-tag">Custom routing</span></div><div class="ai-actions"><button disabled>Add provider</button><button disabled>Set routing</button></div><div class="provider-note">Designed for additional AI providers and future Flash-Hook AI.</div></div></div>
+<div id="providerRouterSettings" class="note">
+  <h3>AI Director routing</h3>
+  <p>Choose how Flash-Hook selects generation providers. Locked Key Data Points and Preserve Everything Else always take priority.</p>
+  <label for="providerMode">Video engine</label>
+  <select id="providerMode"><option value="auto">AI Director chooses automatically</option><option value="pixverse">PixVerse</option><option value="runway">Runway</option><option value="openart">OpenArt</option><option value="musiclab">MusicLab (manual handoff)</option><option value="future">Future / other provider</option></select>
+  <label for="providerPriority">Routing priority</label>
+  <select id="providerPriority"><option value="consistency">Consistency first</option><option value="quality">Quality first</option><option value="cost">Cost / free first</option><option value="speed">Speed first</option></select>
+  <label for="freePreference">Free preference</label>
+  <select id="freePreference"><option value="prefer">Prefer free when safe</option><option value="always">Always try free first</option><option value="off">Do not prefer free</option></select>
+  <div class="ai-grid" style="margin-top:14px">
+    <div class="ai-card"><div class="ai-card-head"><h3>PixVerse</h3><span class="badge">Free option</span></div><div class="provider-note">Preferred free route when character/reference consistency can still be preserved.</div></div>
+    <div class="ai-card"><div class="ai-card-head"><h3>Runway</h3><span class="badge">Trial / Paid</span></div><div class="provider-note">Best fit for surgical edits and Preserve Everything Else workflows.</div></div>
+    <div class="ai-card"><div class="ai-card-head"><h3>OpenArt</h3><span class="badge">Trial / Connector</span></div><div class="provider-note">Useful for storyboard-heavy workflows and persistent characters/worlds.</div></div>
+    <div class="ai-card"><div class="ai-card-head"><h3>MusicLab</h3><span class="badge">Manual handoff</span></div><div class="provider-note">Music/video workflow available as a handoff until a supported API is verified.</div></div>
+    <div class="ai-card"><div class="ai-card-head"><h3>One More Shot</h3><span class="badge">Benchmark</span></div><div class="provider-note">Music-video benchmark until a supported developer integration is verified.</div></div>
+  </div>
+  <p id="providerStatus" class="provider-note"></p>
+</div>
+<div class="note"><strong>Choose your own tools.</strong><p>Planned options include your own provider accounts and Flash-Hook AI allowances. Supported services and usage limits will be confirmed before paid checkout opens.</p></div></section><section id="shortcuts"><h2>Your capture shortcuts</h2><p>Two entry points: Quick Capture opens the recorder, and Flash-Hook opens the full app. Recording stays available inside the app too.</p><div class="settings-nav"><a href="capture.html">Open Quick Capture</a><a href="capture.html?start=1">Launch countdown capture</a><a href="Flash-Hook-Capture.url" download>PC Capture shortcut</a><a href="Flash-Hook.url" download>PC App shortcut</a></div><p>On PC, save the two shortcut files to your Desktop. On your phone, use the countdown-capture address when configuring a button or home-screen shortcut. The phone’s button mapping depends on its model. Browser microphone permission is required; some browsers may need a tap to begin.</p></section></main><footer><a href="studio.html">Open workshops</a><span>Checkout coming soon</span></footer>
+<script>
+const providerKey='flashhook-provider-router-v1';
+const byId=id=>document.getElementById(id);
+function providerSave(){
+  const state={mode:byId('providerMode').value,priority:byId('providerPriority').value,free:byId('freePreference').value};
+  try{localStorage.setItem(providerKey,JSON.stringify(state));}catch{}
+  let msg=state.mode==='auto'?'AI Director will route by '+state.priority+'. ':'Using '+byId('providerMode').selectedOptions[0].textContent+'. ';
+  if(state.free==='prefer')msg+='Free options are preferred when they can preserve locked Key Data Points.';
+  if(state.free==='always')msg+='Flash-Hook will try a free option first, then fall back if continuity would be compromised.';
+  if(state.free==='off')msg+='Free-tier preference is disabled.';
+  byId('providerStatus').textContent=msg;
+}
+try{const p=JSON.parse(localStorage.getItem(providerKey)||'null');if(p){if(p.mode)byId('providerMode').value=p.mode;if(p.priority)byId('providerPriority').value=p.priority;if(p.free)byId('freePreference').value=p.free;}}catch{}
+['providerMode','providerPriority','freePreference'].forEach(id=>byId(id)?.addEventListener('change',providerSave));providerSave();
+</script></body></html>
