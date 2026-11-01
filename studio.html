@@ -89,6 +89,24 @@
 .lock-banner{border-left:3px solid var(--accent);background:#20272b;padding:10px 12px;border-radius:6px;font-size:12px}
 @media(max-width:560px){.priority-row{grid-template-columns:1fr}.kdp-row{grid-template-columns:1fr}}
 
+
+/* FlashHook Teleprompter */
+.teleprompter{border:1px solid #58636c;border-radius:16px;padding:18px;background:#171d22}
+.tele-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tele-grid{display:grid;gap:12px;margin-top:14px}
+.tele-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tele-grid input,.tele-grid select,.tele-grid textarea{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:44px}
+.tele-stage{margin-top:14px;border:1px solid #45505a;border-radius:14px;background:#090d10;min-height:280px;display:flex;align-items:center;justify-content:center;padding:28px;overflow:hidden;position:relative}
+.tele-text{font-weight:800;line-height:1.5;text-align:center;font-size:clamp(28px,5vw,48px);max-width:900px;white-space:pre-wrap}
+.tele-cue{position:absolute;left:12px;right:12px;top:50%;border-top:2px solid var(--accent);opacity:.45;pointer-events:none}
+.tele-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tele-controls button{flex:1;min-width:120px}
+.tele-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.tele-chip{border:1px solid #45505a;border-radius:10px;padding:9px;text-align:center}
+.tele-chip strong{display:block;color:var(--accent)}
+.tele-hint{font-size:12px;color:#b2bdc1}
+@media(max-width:560px){.tele-row,.tele-meta{grid-template-columns:1fr}.tele-controls button{min-width:100%}}
+
 </style>
 <link rel="stylesheet" href="sequencer.css">
 <link rel="manifest" href="manifest.webmanifest">
@@ -114,6 +132,42 @@
       <div id="notesPane" class="hidden"><label for="notesText">Key Data Points preview</label><textarea id="notesText" placeholder="Key Data Points preview"></textarea></div>
       <p id="ideaStatus" class="status" role="status" aria-live="polite"></p>
     </section>
+
+
+<section class="teleprompter" id="teleprompterSection" aria-labelledby="teleprompterTitle">
+  <div class="tele-head">
+    <div><div class="eyebrow" id="teleEyebrow">MUSIC • PERFORMANCE</div><h2 id="teleprompterTitle">FlashHook Teleprompter</h2><p id="teleIntro">Perform lyrics on camera with a clean, readable prompt and timing controls.</p></div>
+    <button id="loadTeleSample" type="button">Load sample</button>
+  </div>
+  <div class="tele-grid">
+    <label for="teleScript" id="teleScriptLabel">Lyrics / performance script</label>
+    <textarea id="teleScript" placeholder="Paste lyrics or script here..."></textarea>
+    <div class="tele-row">
+      <div><label for="teleSpeed">Scroll speed</label><input id="teleSpeed" type="range" min="10" max="100" value="45"></div>
+      <div><label for="teleSize">Text size</label><input id="teleSize" type="range" min="24" max="72" value="42"></div>
+    </div>
+    <div class="tele-row">
+      <div><label for="teleCountdown">Count-in</label><select id="teleCountdown"><option value="0">None</option><option value="3" selected>3 seconds</option><option value="5">5 seconds</option></select></div>
+      <div><label for="teleTarget">Target length</label><select id="teleTarget"><option value="">Open</option><option value="30">30 sec</option><option value="60">60 sec</option><option value="180">3 min</option></select></div>
+    </div>
+    <label><input id="teleMirror" type="checkbox"> Mirror prompt for teleprompter glass</label>
+    <label><input id="teleChunk" type="checkbox" checked> Break long scripts into performable chunks</label>
+  </div>
+  <div class="tele-stage" id="teleStage" aria-live="polite"><div class="tele-cue"></div><div class="tele-text" id="teleText">Paste a script, then press Start.</div></div>
+  <div class="tele-controls">
+    <button id="teleStart" class="active" type="button">▶ Start</button>
+    <button id="telePause" type="button" disabled>Pause</button>
+    <button id="teleRestart" type="button">Restart</button>
+    <button id="teleScene" type="button">Perform This Scene</button>
+  </div>
+  <div class="tele-meta">
+    <div class="tele-chip"><strong id="teleWords">0</strong><small>words</small></div>
+    <div class="tele-chip"><strong id="teleEstimate">0:00</strong><small>est. read time</small></div>
+    <div class="tele-chip"><strong id="teleModeName">Performance</strong><small>studio mode</small></div>
+  </div>
+  <p class="tele-hint" id="teleHint">Music mode can follow lyrics or a performance script. Camera recording hookup comes next.</p>
+  <p class="status" id="teleStatus" role="status" aria-live="polite"></p>
+</section>
 
 <section class="panel sequencer" id="sequencerSection" aria-labelledby="sequencerTitle">
 <div class="seq-heading"><div><div class="eyebrow">MUSIC WORKSHOP</div><h2 id="sequencerTitle">Beat sequencer</h2><p>Tap the steps. Find your groove.</p></div><span class="seq-meter" id="seqPosition">Ready · 16 steps</span></div>
@@ -236,6 +290,16 @@
       $('mode').textContent = categories.find(c => c.id === studio).name.toUpperCase() + ' STUDIO';
       $('studioDescription').textContent = studioDescriptions[studio] || 'Capture and develop ideas for this category.';
       $('hook').textContent = studio === 'music' ? "✎ I've got a hook" : studio === 'comedy' ? "✎ I've got a bit" : "✎ I've got an idea";
+      if ($('teleprompterSection')) {
+        const teleCfg={
+          music:{eyebrow:'MUSIC • PERFORMANCE',intro:'Perform lyrics on camera with a clean, readable prompt and timing controls.',label:'Lyrics / performance script',mode:'Performance',hint:'Use this for singing, rapping, lip-sync reference, or on-camera performance takes.'},
+          comedy:{eyebrow:'COMEDY • DELIVERY',intro:'Rehearse and record bits with pacing, pause, and callback-friendly prompting.',label:'Bit / routine script',mode:'Comedy',hint:'Use line breaks for beats. Add [PAUSE], [LOOK], or [CALLBACK] cues directly in the script.'},
+          creator:{eyebrow:'CREATOR • TUTORIAL',intro:'Deliver tutorials, reels, and YouTube scripts without losing the hook, steps, or CTA.',label:'Creator / tutorial script',mode:'Creator',hint:'Structure works best as Hook → Steps → Result → CTA. Perform in chunks for clean edits.'},
+          venture:{eyebrow:'VENTURE • PITCH',intro:'Deliver proposals, commercials, sales pitches, and explainers to a target duration.',label:'Pitch / commercial script',mode:'Pitch',hint:'Use the 30 sec / 60 sec / 3 min targets to rehearse concise versions of the same idea.'}
+        };
+        const t=teleCfg[studio]||teleCfg.creator;
+        $('teleEyebrow').textContent=t.eyebrow;$('teleIntro').textContent=t.intro;$('teleScriptLabel').textContent=t.label;$('teleModeName').textContent=t.mode;$('teleHint').textContent=t.hint;
+      }
       if ($('storyboardSection')) $('storyboardSection').classList.remove('hidden');
       if ($('storyboardJump')) $('storyboardJump').classList.remove('hidden');
       if ($('storyboardTitle')) {
