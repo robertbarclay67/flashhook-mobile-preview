@@ -162,6 +162,33 @@
         </div>
         <p class="status" id="directorStatus" role="status" aria-live="polite"></p>
       </div>
+      <div class="kdp-panel" id="kdpPanel">
+        <div class="storyboard-head"><div><div class="eyebrow">SI CACHE</div><h2>Key Data Points</h2><p>Approved details stay cached and locked until you explicitly replace or flush them. Revisions default to Preserve Everything Else.</p></div></div>
+        <div class="lock-banner">🔒 Preserve Everything Else: <strong>ON</strong> — change only what you intentionally unlock.</div>
+        <div class="kdp-grid">
+          <div class="kdp-row"><input id="kdpInput" maxlength="220" placeholder="Add a locked detail"><button id="addKdp" type="button">Lock KDP</button></div>
+          <div class="kdp-list" id="kdpList"></div>
+          <div class="storyboard-actions"><button id="unlockSelected" type="button">Unlock selected</button><button id="flushSelected" type="button">Flush selected</button></div>
+          <p class="status" id="kdpStatus" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="provider-router" id="providerRouter">
+        <div class="storyboard-head"><div><div class="eyebrow">GENERATION ROUTER</div><h2>Generation providers</h2><p>AI Director can choose automatically. Locked Key Data Points override cost, speed, and free-tier preference.</p></div></div>
+        <div class="provider-grid">
+          <div><label for="providerMode">Video engine</label><select id="providerMode"><option value="auto">AI Director chooses automatically</option><option value="pixverse">PixVerse</option><option value="runway">Runway</option><option value="openart">OpenArt</option><option value="future">Future / other provider</option></select></div>
+          <div class="priority-row">
+            <div><label for="providerPriority">Routing priority</label><select id="providerPriority"><option value="consistency">Consistency first</option><option value="quality">Quality first</option><option value="cost">Cost / free first</option><option value="speed">Speed first</option></select></div>
+            <div><label for="freePreference">Free preference</label><select id="freePreference"><option value="prefer">Prefer free when safe</option><option value="always">Always try free first</option><option value="off">Do not prefer free</option></select></div>
+          </div>
+        </div>
+        <div class="provider-cards">
+          <div class="provider-card"><strong><span>PixVerse</span><span class="tier free">FREE OPTION</span></strong><div class="provider-note">Preferred free route when reference consistency and locked KDPs can still be respected.</div></div>
+          <div class="provider-card"><strong><span>Runway</span><span class="tier trial">TRIAL / PAID</span></strong><div class="provider-note">Strong fit for surgical edits, multi-shot video, and Preserve Everything Else workflows.</div></div>
+          <div class="provider-card"><strong><span>OpenArt</span><span class="tier trial">TRIAL / CONNECTOR</span></strong><div class="provider-note">Useful for storyboard-heavy workflows and persistent characters/worlds when connected.</div></div>
+          <div class="provider-card"><strong><span>One More Shot</span><span class="tier">BENCHMARK</span></strong><div class="provider-note">Music-video benchmark until a supported developer integration is verified.</div></div>
+        </div>
+        <p class="status" id="providerStatus" role="status" aria-live="polite"></p>
+      </div>
     </section>
 
 
