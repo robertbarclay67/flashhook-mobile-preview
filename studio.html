@@ -122,6 +122,22 @@
 .tele-take video{width:100%;border-radius:8px;margin-top:8px}
 @media(max-width:700px){.tele-camera-grid{grid-template-columns:1fr}}
 
+
+/* Video Finishing */
+.finish-panel{border:1px solid #58636c;border-radius:16px;padding:18px;background:#171d22}
+.finish-grid{display:grid;gap:12px}
+.finish-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.finish-grid input,.finish-grid select,.finish-grid textarea{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:44px}
+.finish-stage{margin-top:14px;border:1px solid #45505a;border-radius:14px;overflow:hidden;background:#050709;position:relative;min-height:260px;display:grid;place-items:center}
+.finish-stage img,.finish-stage video,.finish-stage canvas{max-width:100%;max-height:520px;display:block}
+.finish-overlay{position:absolute;inset:0;pointer-events:none;display:flex;padding:28px;align-items:center;justify-content:center;text-align:center}
+.finish-overlay-text{font-size:clamp(28px,5vw,64px);font-weight:900;line-height:1.05;text-shadow:0 3px 14px #000;white-space:pre-wrap}
+.finish-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.finish-controls button{flex:1;min-width:140px}
+.finish-help{font-size:12px;color:#b2bdc1}
+.key-preview{width:100%;background:#000}
+@media(max-width:560px){.finish-row{grid-template-columns:1fr}.finish-controls button{min-width:100%}}
+
 </style>
 <link rel="stylesheet" href="sequencer.css">
 <link rel="manifest" href="manifest.webmanifest">
@@ -208,6 +224,43 @@
     <div class="tele-takes" id="teleTakes"></div>
   </div>
   <p class="status" id="teleStatus" role="status" aria-live="polite"></p>
+
+</section>
+
+<section class="finish-panel" id="finishingSection" aria-labelledby="finishingTitle">
+  <div class="storyboard-head">
+    <div><div class="eyebrow">SHARED PRODUCTION TOOL</div><h2 id="finishingTitle">Video Finishing</h2><p>Use imported project assets for title cards, text overlays, backgrounds, and green-screen replacement.</p></div>
+    <button id="refreshFinishAssets" type="button">Refresh assets</button>
+  </div>
+  <div class="finish-grid">
+    <div class="finish-row">
+      <div><label for="finishSource">Source image / video</label><select id="finishSource"><option value="">Choose an uploaded asset…</option></select></div>
+      <div><label for="finishBackground">Background image / video</label><select id="finishBackground"><option value="">None / transparent</option></select></div>
+    </div>
+    <label for="finishText">Text overlay</label>
+    <textarea id="finishText" placeholder="Title, lyric, punchline, tutorial step, product claim…"></textarea>
+    <div class="finish-row">
+      <div><label for="finishTextPosition">Text position</label><select id="finishTextPosition"><option value="center">Center</option><option value="top">Top</option><option value="bottom">Bottom</option></select></div>
+      <div><label for="finishTextSize">Text size</label><input id="finishTextSize" type="range" min="24" max="96" value="58"></div>
+    </div>
+    <div class="finish-row">
+      <div><label for="finishKeyColor">Chroma key color</label><select id="finishKeyColor"><option value="green">Green screen</option><option value="blue">Blue screen</option></select></div>
+      <div><label for="finishTolerance">Key tolerance</label><input id="finishTolerance" type="range" min="20" max="180" value="90"></div>
+    </div>
+    <label><input id="finishEnableKey" type="checkbox"> Enable chroma key / background replacement preview</label>
+  </div>
+  <div class="finish-stage" id="finishStage">
+    <div id="finishMedia"></div>
+    <canvas id="finishCanvas" class="key-preview hidden" width="1280" height="720"></canvas>
+    <div class="finish-overlay" id="finishOverlay"><div class="finish-overlay-text" id="finishOverlayText">Choose an asset or create a title card.</div></div>
+  </div>
+  <div class="finish-controls">
+    <button id="finishPreview" class="active" type="button">Preview</button>
+    <button id="finishTitleCard" type="button">Create title-screen still</button>
+    <button id="finishDownloadStill" type="button" disabled>Download still</button>
+  </div>
+  <p class="finish-help">Imported image and video assets come from the same FlashHook Idea Pool library. Title-card stills can use an uploaded image as the background. Chroma key currently previews in-browser; video export is the next finishing step.</p>
+  <p class="status" id="finishStatus" role="status" aria-live="polite">Choose an uploaded asset or type a title.</p>
 </section>
 
 <section class="panel sequencer" id="sequencerSection" aria-labelledby="sequencerTitle">
