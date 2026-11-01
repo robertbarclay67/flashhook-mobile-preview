@@ -69,25 +69,6 @@
 .approve-generate{background:var(--accent);color:var(--accent-ink);font-weight:850;border-color:var(--accent)}
 
 
-/* Key Data Point cache + provider router */
-.kdp-panel,.provider-router{margin-top:18px;border-top:1px solid #45505a;padding-top:16px}
-.kdp-grid,.provider-grid{display:grid;gap:12px}
-.kdp-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
-.kdp-row input,.provider-grid select{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:44px}
-.kdp-list{display:grid;gap:8px;margin-top:10px}
-.kdp-item{display:flex;gap:10px;align-items:flex-start;border:1px solid #45505a;border-radius:10px;background:#12171c;padding:10px}
-.kdp-item input{margin-top:4px}
-.kdp-text{flex:1}
-.kdp-meta{font-size:11px;color:#b2bdc1;margin-top:3px}
-.provider-cards{display:grid;gap:10px;margin-top:10px}
-.provider-card{border:1px solid #45505a;border-radius:12px;background:#12171c;padding:12px}
-.provider-card strong{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.tier{font-size:11px;padding:3px 7px;border-radius:999px;border:1px solid #58636c;color:#cfd6d8}
-.tier.free{border-color:var(--accent);color:var(--accent)}
-.tier.trial{border-color:#ffdc80;color:#ffdc80}
-.priority-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.lock-banner{border-left:3px solid var(--accent);background:#20272b;padding:10px 12px;border-radius:6px;font-size:12px}
-@media(max-width:560px){.priority-row{grid-template-columns:1fr}.kdp-row{grid-template-columns:1fr}}
 
 
 /* FlashHook Teleprompter */
@@ -138,6 +119,15 @@
 .key-preview{width:100%;background:#000}
 @media(max-width:560px){.finish-row{grid-template-columns:1fr}.finish-controls button{min-width:100%}}
 
+
+/* Key Data Point cache */
+.kdp-panel{margin-top:18px;border-top:1px solid #45505a;padding-top:16px}
+.kdp-grid{display:grid;gap:12px}.kdp-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.kdp-row input{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:44px}
+.kdp-list{display:grid;gap:8px;margin-top:10px}.kdp-item{display:flex;gap:10px;align-items:flex-start;border:1px solid #45505a;border-radius:10px;background:#12171c;padding:10px}
+.kdp-item input{margin-top:4px}.kdp-text{flex:1}.kdp-meta{font-size:11px;color:#b2bdc1;margin-top:3px}
+.lock-banner{border-left:3px solid var(--accent);background:#20272b;padding:10px 12px;border-radius:6px;font-size:12px}
+@media(max-width:560px){.kdp-row{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="sequencer.css">
 <link rel="manifest" href="manifest.webmanifest">
@@ -320,23 +310,7 @@
           <p class="status" id="kdpStatus" role="status" aria-live="polite"></p>
         </div>
       </div>
-      <div class="provider-router" id="providerRouter">
-        <div class="storyboard-head"><div><div class="eyebrow">GENERATION ROUTER</div><h2>Generation providers</h2><p>AI Director can choose automatically. Locked Key Data Points override cost, speed, and free-tier preference.</p></div></div>
-        <div class="provider-grid">
-          <div><label for="providerMode">Video engine</label><select id="providerMode"><option value="auto">AI Director chooses automatically</option><option value="pixverse">PixVerse</option><option value="runway">Runway</option><option value="openart">OpenArt</option><option value="future">Future / other provider</option></select></div>
-          <div class="priority-row">
-            <div><label for="providerPriority">Routing priority</label><select id="providerPriority"><option value="consistency">Consistency first</option><option value="quality">Quality first</option><option value="cost">Cost / free first</option><option value="speed">Speed first</option></select></div>
-            <div><label for="freePreference">Free preference</label><select id="freePreference"><option value="prefer">Prefer free when safe</option><option value="always">Always try free first</option><option value="off">Do not prefer free</option></select></div>
-          </div>
-        </div>
-        <div class="provider-cards">
-          <div class="provider-card"><strong><span>PixVerse</span><span class="tier free">FREE OPTION</span></strong><div class="provider-note">Preferred free route when reference consistency and locked KDPs can still be respected.</div></div>
-          <div class="provider-card"><strong><span>Runway</span><span class="tier trial">TRIAL / PAID</span></strong><div class="provider-note">Strong fit for surgical edits, multi-shot video, and Preserve Everything Else workflows.</div></div>
-          <div class="provider-card"><strong><span>OpenArt</span><span class="tier trial">TRIAL / CONNECTOR</span></strong><div class="provider-note">Useful for storyboard-heavy workflows and persistent characters/worlds when connected.</div></div>
-          <div class="provider-card"><strong><span>One More Shot</span><span class="tier">BENCHMARK</span></strong><div class="provider-note">Music-video benchmark until a supported developer integration is verified.</div></div>
-        </div>
-        <p class="status" id="providerStatus" role="status" aria-live="polite"></p>
-      </div>
+      <div class="storyboard-actions" style="margin-top:14px"><a href="settings.html#aiConnections" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 16px;border:1px solid #58636c;border-radius:12px;color:var(--accent);text-decoration:none">⚙ AI tools & provider settings</a></div>
     </section>
 
 
