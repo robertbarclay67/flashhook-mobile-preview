@@ -142,6 +142,12 @@
 .workflow-next a{color:var(--accent);text-decoration:none;font-weight:700}
 .workflow-note{font-size:12px;color:#b2bdc1;margin:8px 0 0}
 
+
+.phase2-box{margin-top:12px;border:1px solid #45505a;border-radius:12px;padding:12px;background:#11171c}
+.phase2-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+.phase2-row select{width:100%;border:1px solid #58636c;border-radius:10px;background:#12171c;color:#fff;padding:12px;min-height:44px}
+@media(max-width:560px){.phase2-row{grid-template-columns:1fr}}
+
 </style>
 <link rel="stylesheet" href="sequencer.css">
 <link rel="manifest" href="manifest.webmanifest">
@@ -239,6 +245,11 @@
           <button id="approveStoryboard">Approve storyboard + stills</button>
           <button id="approveGenerate" class="approve-generate">Approve stills &amp; Animate</button>
         </div>
+        <div class="phase2-box">
+          <strong>Approved production package</strong>
+          <p class="provider-note">Bundle storyboard scenes, AI-video instructions, locked Key Data Points, continuity notes, and Preserve Everything Else into one handoff file.</p>
+          <div class="storyboard-actions"><button id="exportProductionPackage" type="button">Export production package</button><button id="copyScenePrompt" type="button">Copy selected scene prompt</button></div>
+        </div>
         <p class="status" id="directorStatus" role="status" aria-live="polite"></p>
       </div>
       <div class="kdp-panel" id="kdpPanel">
@@ -278,6 +289,11 @@
     <label><input id="teleChunk" type="checkbox" checked> Break long scripts into performable chunks</label>
   </div>
   <div class="tele-stage" id="teleStage" aria-live="polite"><div class="tele-cue"></div><div class="tele-text" id="teleText">Paste a script, then press Start.</div></div>
+  <div class="phase2-box">
+    <label for="teleSceneSelect">Storyboard scene</label>
+    <div class="phase2-row"><select id="teleSceneSelect"><option value="">Build a storyboard to choose a scene…</option></select><button id="teleLoadSelected" type="button">Load scene</button></div>
+    <p class="tele-hint">The selected scene carries its lyric/script, visual direction, and continuity note into the performance take.</p>
+  </div>
   <div class="tele-controls">
     <button id="teleStart" class="active" type="button">▶ Start</button>
     <button id="telePause" type="button" disabled>Pause</button>
@@ -355,8 +371,9 @@
     <button id="finishPreview" class="active" type="button">Preview</button>
     <button id="finishTitleCard" type="button">Create title-screen still</button>
     <button id="finishDownloadStill" type="button" disabled>Download still</button>
+    <button id="finishExportPreviewVideo" type="button">Export 5-sec preview video</button>
   </div>
-  <p class="finish-help">Imported image and video assets come from the same FlashHook Idea Pool library. Title-card stills can use an uploaded image as the background. Chroma key currently previews in-browser; video export is the next finishing step.</p>
+  <p class="finish-help">Imported image and video assets come from the same FlashHook Idea Pool library. Title-card stills can use an uploaded image as the background. Chroma key previews in-browser. A short rendered preview export is available on browsers that support canvas recording; full-length production export remains a later step.</p>
   <p class="status" id="finishStatus" role="status" aria-live="polite">Choose an uploaded asset or type a title.</p>
 </section>
     <div class="workflow-next"><a href="#step6">Next: Organize project →</a></div>
@@ -524,6 +541,30 @@
 
     // Flash-Hook AI Director Review
     let lastStoryboardCards=[];
+    function refreshTeleSceneSelect(){
+      const sel=$('teleSceneSelect'); if(!sel)return;
+      const current=sel.value; sel.replaceChildren();
+      const first=document.createElement('option');first.value='';first.textContent=lastStoryboardCards.length?'Choose a storyboard scene…':'Build a storyboard to choose a scene…';sel.append(first);
+      lastStoryboardCards.forEach((c,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent=(i+1)+'. '+(c.section||'Scene')+' — '+c.lyric.slice(0,70);sel.append(o);});
+      if(current && Number(current)<lastStoryboardCards.length)sel.value=current;
+    }
+    function lockedKdpTexts(){return (typeof kdps!=='undefined'?kdps:[]).filter(k=>k.locked).map(k=>k.text);}
+    function sceneProductionPrompt(index){
+      const c=lastStoryboardCards[index]; if(!c)return '';
+      const locks=lockedKdpTexts();
+      return [
+        'FLASHHOOK AI DIRECTOR — APPROVED SCENE',
+        'Scene '+(index+1)+': '+(c.section||'Scene'),
+        'Source: '+c.lyric,
+        'Location: '+(c.location||''),
+        'Visual beat: '+(c.visual||''),
+        'AI video instruction: '+(c.prompt||''),
+        'Continuity note: '+(c.continuity||'None'),
+        'PRESERVE EVERYTHING ELSE: ON',
+        'LOCKED KEY DATA POINTS:',
+        ...(locks.length?locks.map(x=>'- '+x):['- None'])
+      ].join('\n');
+    }
     let currentReviewTab='story';
     const esc=t=>String(t??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     function directorReviewData(cards){
@@ -569,6 +610,16 @@
     $('runDirectorReview').onclick=()=>{if(!lastStoryboardCards.length){$('directorStatus').textContent='Build a storyboard first.';return;}renderDirectorReview();};
     $('approveStoryboard').onclick=()=>{if(!lastStoryboardCards.length){$('directorStatus').textContent='Nothing to approve yet.';return;}try{localStorage.setItem('flashhook-approved-storyboard-v1',JSON.stringify({studio,cards:lastStoryboardCards,approvedAt:Date.now()}));$('directorStatus').textContent='Storyboard approved locally.';}catch{$('directorStatus').textContent='Approved for this visit; browser storage is unavailable.';}};
     $('approveGenerate').onclick=()=>{if(!lastStoryboardCards.length){$('directorStatus').textContent='Build a storyboard first.';return;}$('approveStoryboard').click();$('directorStatus').textContent='Generation queue prototype: storyboard approved. Video-engine handoff is the next integration step.';};
+    if($('exportProductionPackage')) $('exportProductionPackage').onclick=()=>{
+      if(!lastStoryboardCards.length){$('directorStatus').textContent='Build a storyboard first.';return;}
+      const payload={format:'flashhook-production-package-v1',studio,concept:$('storyConcept').value,duration:Number($('storyDuration').value)||null,preserveEverythingElse:true,lockedKeyDataPoints:lockedKdpTexts(),scenes:lastStoryboardCards.map((c,i)=>({...c,approvedPrompt:sceneProductionPrompt(i)})),exportedAt:new Date().toISOString()};
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='FlashHook-production-package.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);$('directorStatus').textContent='Production package exported.';
+    };
+    if($('copyScenePrompt')) $('copyScenePrompt').onclick=async()=>{
+      const selected=Number($('teleSceneSelect')?.value);const index=Number.isInteger(selected)&&lastStoryboardCards[selected]?selected:0;
+      if(!lastStoryboardCards[index]){$('directorStatus').textContent='Build a storyboard first.';return;}
+      try{await navigator.clipboard.writeText(sceneProductionPrompt(index));$('directorStatus').textContent='Scene '+(index+1)+' prompt copied with locked KDPs.';}catch{$('directorStatus').textContent='Clipboard unavailable. Use the exported production package instead.';}
+    };
 
     // Storyboard-to-Beat™: local-only prototype. No cloud upload or AI API required.
     const storyboardKey='flashhook-storyboard-prototype-v1';
@@ -689,6 +740,7 @@ Do it to it`,
     }
     function renderStoryboard(cards){
       lastStoryboardCards=cards;
+      refreshTeleSceneSelect();
       const box=$('storyboardCards'); box.replaceChildren();
       const warnings=storyboardChecks(cards), hooks=cards.filter(c=>c.isHook).length, locations=[...new Set(cards.map(c=>c.location))];
       $('storyboardChecks').innerHTML=warnings.length
